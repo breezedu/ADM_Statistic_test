@@ -48,16 +48,16 @@ public class Read_in_SNPs_data {
 		*/
 		
 		// 2nd, get directory routine: D:\GitHub\ADM_Statistic_Data
-		String routine = "D:/GitHub/ADM_Statistic_Data/";
+		// String routine = "D:/GitHub/ADM_Statistic_Data/";
 		
-		//String routine = "D:/GitHubRepositories/ADM_Statistic_Data/";
+		String routine = "D:/GitHubRepositories/ADM_Statistic_Data/";
 		
 		
 		// 3rd, get SNPs data for individual-1, 
 		// the first line in each lampld_chr*.out data file represents the SNPs blocks for that person
 		// there are 565 lines for each document, which represents 565 individuals in total
 		
-		Scanner chr_1 = new Scanner(new File(routine + "lampld_chr1_test.out"));
+		Scanner chr_1 = new Scanner(new File(routine + files[0]));
 		
 		int line = 0; 
 		String chr_1_SNPs = "";
@@ -161,45 +161,45 @@ public class Read_in_SNPs_data {
 		
 		for(int i=0; i<block_list.size(); i++){
 			
-			for(int j=0; j<block_list.get(i).snp_list.size(); j++){
-				
-				System.out.print(" " + block_list.get(i).snp_list.get(j));
-			}
+			System.out.print(" " + block_list.get(i).getSNP() + ":" + block_list.get(i).getCount() + " ");
 			
-			System.out.print("***");
+			// System.out.print("***");
 		}
 		
 		System.out.println();
 	}
 
+	
+	/*********
+	 * Create an SNP_Block object method;
+	 * 
+	 * @param snp
+	 * @param count
+	 * @return
+	 */
 	private static SNP_Block creat_SNP_Blocks(int snp, int count) {
 		// TODO Auto-generated method stub
 		
 		//1st, determine SNP type, 11, 01, or 00
-		String snp_type = "";
+		int snp_type = 0;
 		if(snp == 11)	{
-			snp_type = "11";
+			snp_type = 2;
 			
 		} else if(snp == 0){
-			snp_type = "00";
+			snp_type = 0;
 			
 		} else if(snp == 1){
-			snp_type = "01";
+			snp_type = 1;
 			
 		}
 		
-		ArrayList<String> snp_list = new ArrayList<String>();
-		for(int i=0; i<count; i++){
-			
-			String type = snp_type;
-			snp_list.add(type);
-		}
 		
-		SNP_Block currblock = new SNP_Block();
-		currblock.snp = snp_type;
-		currblock.snp_list = snp_list;
+		SNP_Block currblock = new SNP_Block(snp_type, count);
+		currblock.setSNP( snp_type );
+		currblock.setCount( count ); 
 		
 		return currblock;
-	}
+	
+	} // end creat_SNP_Blocks() method;
 
 }//ee
