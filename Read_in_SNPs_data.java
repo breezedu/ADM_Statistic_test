@@ -64,14 +64,14 @@ public class Read_in_SNPs_data {
 		//get all the SNP blocks, save them to an ArrayList
 		
 		//for each individual	
-		for(int j=1; j<566; j++){
+		for(int indiv =1; indiv < 566; indiv++){
 			
 			SNP_block_list = new ArrayList<SNP_Block>();
 			
 			//for each chromosome
 			for(int i=0; i<22; i++){
 				
-				SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], j, SNP_block_list);
+				SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], indiv, SNP_block_list);
 			}
 			
 			// SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], individual_num, SNP_block_list);
@@ -87,6 +87,13 @@ public class Read_in_SNPs_data {
 				Collections.shuffle(SNP_block_list);
 				print_SNP_Blocks(SNP_block_list);
 			}
+			
+			
+			/*******************
+			 * Hereby, we have got all 1000 shuffled SNP-blocks for current individual;
+			 * we could either printout these blocks to a txt document
+			 * or perform ADM test at this point for current individual;
+			 */
 			
 		}
 		
