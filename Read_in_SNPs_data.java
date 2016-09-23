@@ -39,7 +39,7 @@ public class Read_in_SNPs_data {
 			files[i-1] = "lampld_chr" + i + ".out";
 		}
 		
-		/**
+		/*******************************
 		 * check the file names:
 		 * 
 			for(int i=0; i<files.length; i++){
@@ -56,78 +56,42 @@ public class Read_in_SNPs_data {
 		// 3rd, get SNPs data for individual-1, 
 		// the first line in each lampld_chr*.out data file represents the SNPs blocks for that person
 		// there are 565 lines for each document, which represents 565 individuals in total
-		
-		Scanner chr_1 = new Scanner(new File(routine + files[0]));
-		
-		int line = 0; 
-		String chr_1_SNPs = "";
-		while(line < 1){
-
-			chr_1_SNPs = chr_1.nextLine();
-			line++;
-		}
-		
-		
-		chr_1.close();
-		
-		System.out.println("The SNPs on chromosome 1 for individual #1: \n \t" + chr_1_SNPs); 
-		
-		// Use pattern match to find all digits in the string line
-		ArrayList<Integer> block_List = new ArrayList<Integer>();
-		
-		Pattern p = Pattern.compile("-?\\d+");
-		Matcher m = p.matcher(chr_1_SNPs);
-		
-		while( m.find() ){
-			
-			System.out.print("\t" + m.group() );
-			int num = Integer.parseInt( m.group() );
-			
-			block_List.add(num);
-			
-		}
-		
-		
-		//transfer string array into number array;
-		int[] blocks_Num = new int[block_List.size()];
-		for(int i=0; i<blocks_Num.length; i++){
-			
-			blocks_Num[i] = block_List.get(i);
-		}
-		
-		
-		System.out.println("\n There are " + block_List.size()/2 + " blocks.");
-		
-		for(int i=blocks_Num.length-1; i>2; i-=2){
-			blocks_Num[i] = blocks_Num[i] - blocks_Num[i-2]; 
-		}
-		
-		for(int i=0; i<blocks_Num.length; i++){
-			
-			System.out.print("\t" + blocks_Num[i]);
-		} 
-		System.out.println();
-
-		
-		// USE every two digits to build one SNP block, the first digit represent what kind of SNP, the second digit gives number of SNPs;
+		int individual_num = 1;
 		ArrayList<SNP_Block> SNP_block_list = new ArrayList<SNP_Block>();
 		
-		for(int i=0; i<blocks_Num.length; i+=2){
+		
+		//send every chromosome file to get_snp_blocks_from_one_chromosome() method
+		//get all the SNP blocks, save them to an ArrayList
+		
+		//for each individual	
+		for(int j=1; j<566; j++){
 			
-			SNP_Block currBlock = creat_SNP_Blocks(blocks_Num[i], blocks_Num[i+1]);
+			SNP_block_list = new ArrayList<SNP_Block>();
 			
-			SNP_block_list.add(currBlock);
-		}
-		
-		
-		print_SNP_Blocks(SNP_block_list);
-		
-		
-		//shuffle 5 times
-		for(int i=0; i<10; i++){
-			Collections.shuffle(SNP_block_list);
+			//for each chromosome
+			for(int i=0; i<22; i++){
+				
+				SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], j, SNP_block_list);
+			}
+			
+			// SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], individual_num, SNP_block_list);
+			
+			System.out.println("\n There are " + SNP_block_list.size() + " SNP blocks for individual#" + individual_num +"\n");
+			
+			
 			print_SNP_Blocks(SNP_block_list);
+			
+			
+			//shuffle 20 times
+			for(int i=0; i<1000; i++){
+				Collections.shuffle(SNP_block_list);
+				print_SNP_Blocks(SNP_block_list);
+			}
+			
 		}
+		
+		
+
 		
 		/***********************
 		 * 
@@ -157,16 +121,88 @@ public class Read_in_SNPs_data {
 		 * 
 		 * 
 		 */
-
+		
 		
 	} //end main()
+
+	private static ArrayList<SNP_Block> get_snp_blocks_from_one_chromosome(	String routine, String file, int individual_num,
+			ArrayList<SNP_Block> SNP_block_list) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		
+		Scanner chr_1 = new Scanner(new File(routine + file));
+			
+		int line = 0; 
+		String chr_1_SNPs = "";
+		while(line < individual_num){
+	
+			chr_1_SNPs = chr_1.nextLine();
+			line++;
+		}
+			
+			
+		chr_1.close();
+			
+		System.out.println("The SNPs on " + file + " for individual #1: \n \t" + chr_1_SNPs); 
+			
+		// Use pattern match to find all digits in the string line
+		ArrayList<Integer> number_List = new ArrayList<Integer>();
+			
+		Pattern p = Pattern.compile("-?\\d+");
+		Matcher m = p.matcher(chr_1_SNPs);
+			
+		while( m.find() ){
+				
+				System.out.print("\t" + m.group() );
+				int num = Integer.parseInt( m.group() );
+				
+				number_List.add(num);
+				
+			}
+			
+			
+			//transfer string array into number array;
+			int[] blocks_Num = new int[number_List.size()];
+			for(int i=0; i<blocks_Num.length; i++){
+				
+				blocks_Num[i] = number_List.get(i);
+			}
+			
+			
+			System.out.println("\n There are " + number_List.size()/2 + " blocks.");
+			
+			for(int i=blocks_Num.length-1; i>2; i-=2){
+				blocks_Num[i] = blocks_Num[i] - blocks_Num[i-2]; 
+			}
+			
+			for(int i=0; i<blocks_Num.length; i++){
+				
+				System.out.print("\t" + blocks_Num[i]);
+			} 
+			System.out.println();
+	
+			
+			// USE every two digits to build one SNP block, the first digit represent what kind of SNP, the second digit gives number of SNPs;
+			
+			
+			for(int i=0; i<blocks_Num.length; i+=2){
+				
+				SNP_Block currBlock = creat_SNP_Blocks(blocks_Num[i], blocks_Num[i+1]);
+				
+				SNP_block_list.add(currBlock);
+			}
+			
+		
+		return SNP_block_list;
+	}
+	
+	
 
 	private static void print_SNP_Blocks(ArrayList<SNP_Block> block_list) {
 		// TODO Auto-generated method stub
 		
 		for(int i=0; i<block_list.size(); i++){
 			
-			System.out.print(" " + block_list.get(i).getSNP() + ":" + block_list.get(i).getCount() + " ");
+			System.out.print(" " + block_list.get(i).getSNP() + ":" + block_list.get(i).getCount() + "\t");
 			
 			// System.out.print("***");
 		}
