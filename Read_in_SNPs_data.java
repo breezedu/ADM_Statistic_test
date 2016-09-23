@@ -56,7 +56,7 @@ public class Read_in_SNPs_data {
 		// 3rd, get SNPs data for individual-1, 
 		// the first line in each lampld_chr*.out data file represents the SNPs blocks for that person
 		// there are 565 lines for each document, which represents 565 individuals in total
-		int individual_num = 1;
+		//int individual_num = 1;
 		ArrayList<SNP_Block> SNP_block_list = new ArrayList<SNP_Block>();
 		
 		
@@ -76,14 +76,14 @@ public class Read_in_SNPs_data {
 			
 			// SNP_block_list = get_snp_blocks_from_one_chromosome(routine, files[i], individual_num, SNP_block_list);
 			
-			System.out.println("\n There are " + SNP_block_list.size() + " SNP blocks for individual#" + individual_num +"\n");
+			System.out.println("\n There are " + SNP_block_list.size() + " SNP blocks for individual#" + indiv +"\n");
 			
 			
 			print_SNP_Blocks(SNP_block_list);
 			
 			
 			//shuffle 20 times
-			for(int i=0; i<1000; i++){
+			for(int i=0; i<100; i++){
 				Collections.shuffle(SNP_block_list);
 				print_SNP_Blocks(SNP_block_list);
 			}
@@ -149,7 +149,7 @@ public class Read_in_SNPs_data {
 			
 		chr_1.close();
 			
-		System.out.println("The SNPs on " + file + " for individual #1: \n \t" + chr_1_SNPs); 
+	//	System.out.println("The SNPs on " + file + " for individual #" + individual_num + " \t" + chr_1_SNPs + "\t"); 
 			
 		// Use pattern match to find all digits in the string line
 		ArrayList<Integer> number_List = new ArrayList<Integer>();
@@ -159,7 +159,7 @@ public class Read_in_SNPs_data {
 			
 		while( m.find() ){
 				
-				System.out.print("\t" + m.group() );
+				//System.out.print("\t" + m.group() );
 				int num = Integer.parseInt( m.group() );
 				
 				number_List.add(num);
@@ -175,7 +175,7 @@ public class Read_in_SNPs_data {
 			}
 			
 			
-			System.out.println("\n There are " + number_List.size()/2 + " blocks.");
+	//		System.out.println("\t There are " + number_List.size()/2 + " blocks.");
 			
 			for(int i=blocks_Num.length-1; i>2; i-=2){
 				blocks_Num[i] = blocks_Num[i] - blocks_Num[i-2]; 
@@ -183,9 +183,9 @@ public class Read_in_SNPs_data {
 			
 			for(int i=0; i<blocks_Num.length; i++){
 				
-				System.out.print("\t" + blocks_Num[i]);
+	//			System.out.print("\t" + blocks_Num[i]);
 			} 
-			System.out.println();
+	//		System.out.println();
 	
 			
 			// USE every two digits to build one SNP block, the first digit represent what kind of SNP, the second digit gives number of SNPs;
