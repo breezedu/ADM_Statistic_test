@@ -84,10 +84,17 @@ public class Read_in_SNPs_data {
 			print_SNP_Blocks(SNP_block_list);
 			
 			
-			//shuffle 100 times
-			for(int i=0; i<100; i++){
-				Collections.shuffle(SNP_block_list);
-				print_SNP_Blocks(SNP_block_list);
+			//shuffle 100 times 
+			/*********
+			 * because collections.shuffle() will shuffle the original ArrayList;
+			 * So we here create a duplicated arrayList of original list;
+			 * then shuffle the new list;
+			 */
+			for(int i=0; i<1000; i++){
+				ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(SNP_block_list);
+				
+				Collections.shuffle(temp_list);
+				print_SNP_Blocks(temp_list);
 			}
 			
 			
@@ -156,7 +163,7 @@ public class Read_in_SNPs_data {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private static ArrayList<SNP_Block> get_snp_blocks_from_one_chromosome(	String routine, String file, int individual_num,
+	static ArrayList<SNP_Block> get_snp_blocks_from_one_chromosome(	String routine, String file, int individual_num,
 			ArrayList<SNP_Block> SNP_block_list) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		
