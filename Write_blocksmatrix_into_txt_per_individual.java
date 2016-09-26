@@ -41,39 +41,57 @@ public class Write_blocksmatrix_into_txt_per_individual {
 		
 		String routine = "D:/GitHubRepositories/ADM_Statistic_Data/";
 		
-		ArrayList<SNP_Block> temp_SNP_list = new ArrayList<SNP_Block>();
 		
-		for(int i=0; i<22; i++){
+		
+		
+		//in this test code, we pick individual #2
+		// int indiv = 1;
+		
+		for(int indiv = 1; indiv <566; indiv++){
 			
-			System.out.println("Read in file: " + files[i]);
+			//initial an arraylist to store all SNP blocks:
+			ArrayList<SNP_Block> temp_SNP_list = new ArrayList<SNP_Block>();
 			
-			temp_SNP_list = Read_in_SNPs_data.get_snp_blocks_from_one_chromosome(routine, files[i], 1, temp_SNP_list);
-		}
-		
-		
-		
-		//initial a buffered writer
-		//BufferedWriter writer = null;
-		File file = new File("D:/GitHubRepositories/ADM_Statistic_Data/matrix/individual_matrix _1.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		
-		//write each blocks, getSNP and getCount, to the txt document
-		write_block_list_into_txt(writer, file, temp_SNP_list);
+			for(int i=0; i<22; i++){
+				
+				System.out.println("Read in file: " + files[i]);
+				
+				temp_SNP_list = Read_in_SNPs_data.get_snp_blocks_from_one_chromosome(routine, files[i], indiv, temp_SNP_list);
+			}
+			
+			
+			//initial a buffered writer
+			//BufferedWriter writer = null;
+			String output_file = "individual_matrix_" + indiv + ".txt";
+			
+			File file = new File("D:/GitHubRepositories/ADM_Statistic_Data/matrix/" + output_file);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			
+			//write each blocks, getSNP and getCount, to the txt document
+			write_block_list_into_txt(writer, file, temp_SNP_list);
 
 
+			
+			for(int i=0; i<1000; i++){
+				ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);
+				
+				Collections.shuffle(temp_list);
+				
+				write_block_list_into_txt(writer, file, temp_list);
+				
+				transfer_blocks_into_matrix(temp_list);
+			}
+			
+			
+			
+			
+			//close buffer_writer
+			writer.close(); 
+			
+			
+		} //end for indiv < 566 loop;		
 		
-		for(int i=0; i<1000; i++){
-			ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);
-			
-			Collections.shuffle(temp_list);
-			
-			write_block_list_into_txt(writer, file, temp_list);
-			
-			transfer_blocks_into_matrix(temp_list);
-		}
 		
-		//close buffer_writer
-		writer.close(); 
 		
 	}//end main();
 
@@ -88,7 +106,10 @@ public class Write_blocksmatrix_into_txt_per_individual {
 			 * This line only write SNP-block into txt document;
 			 * 1:5 0:6 2:8 -----
 			 */
-			//writer.write(temp_SNP_list.get(i).getSNP() + ":" + temp_SNP_list.get(i).getCount() + "\t");
+			writer.write(temp_SNP_list.get(i).getSNP() + ":" + temp_SNP_list.get(i).getCount() + "\t");
+			
+			
+			
 			for(int j=0; j<temp_SNP_list.get(i).getCount(); j++){
 				
 				/*************
@@ -97,6 +118,8 @@ public class Write_blocksmatrix_into_txt_per_individual {
 				 */
 				writer.write(temp_SNP_list.get(i).getSNP() + "\t");
 			}
+		
+		
 		} 
 		writer.write("\n");
 		
