@@ -114,6 +114,10 @@ public class Write_blocksmatrix_into_txt_per_individual {
 	
 	
 	/***************************
+	 * pass an ArrayList to the method; 
+	 * the method will read each block from the list, 
+	 * and then create '1', '0', or '2' array based on the block-SNP and block-count
+	 * write the array to a txt file
 	 * 
 	 * @param writer
 	 * @param file
@@ -132,7 +136,7 @@ public class Write_blocksmatrix_into_txt_per_individual {
 			// writer.write(temp_SNP_list.get(i).getSNP() + ":" + temp_SNP_list.get(i).getCount() + "\t");
 			
 			
-			
+			//create an array of 1, 0, or 2 based on the block_SNP and the block_count;
 			for(int j=0; j<temp_SNP_list.get(i).getCount(); j++){
 				
 				/*************
@@ -146,7 +150,7 @@ public class Write_blocksmatrix_into_txt_per_individual {
 								
 		}//end outer for i<temp_SNP_list.size() loop; 
 		
-		
+		//close the current line
 		writer.write("\n");
 		
 	}//end of write_block_list_into_txt() method;
