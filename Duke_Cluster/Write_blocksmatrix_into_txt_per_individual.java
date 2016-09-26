@@ -111,7 +111,7 @@ public class Write_blocksmatrix_into_txt_per_individual {
 			 * This line only write SNP-block into txt document;
 			 * 1:5 0:6 2:8 -----
 			 */
-			writer.write(temp_SNP_list.get(i).getSNP() + ":" + temp_SNP_list.get(i).getCount() + "\t");
+			//writer.write(temp_SNP_list.get(i).getSNP() + ":" + temp_SNP_list.get(i).getCount() + "\t");
 			
 			
 			
@@ -123,9 +123,11 @@ public class Write_blocksmatrix_into_txt_per_individual {
 				 */
 				writer.write(temp_SNP_list.get(i).getSNP() + "\t");
 			}
-		
+
+			
 		
 		} 
+
 		writer.write("\n");
 		
 	}
