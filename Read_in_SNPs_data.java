@@ -242,7 +242,8 @@ public class Read_in_SNPs_data {
 			
 		//return the SNP block list 
 		return SNP_block_list;
-	}
+		
+	} //end get_snp_blocks_from_one_chromosome() method
 	
 	
 
@@ -262,7 +263,7 @@ public class Read_in_SNPs_data {
 		}
 		
 		System.out.println();
-	}
+	} //end print_SNP_Blocks() method;
 
 	
 	
