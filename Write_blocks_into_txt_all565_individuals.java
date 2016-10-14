@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,7 +62,7 @@ public class Write_blocks_into_txt_all565_individuals {
 		//BufferedWriter writer = null;
 		String output_file = "all_individual_blocks.txt";
 		
-		File file = new File("D:/GitHubRepositories/ADM_Statistic_Data/" + output_file);
+		File file = new File(routine + output_file);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		
 		
@@ -95,22 +95,6 @@ public class Write_blocks_into_txt_all565_individuals {
 			//ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);			
 			//Collections.shuffle(temp_list);
 			
-			/**********
-			 * 
-			 *
-			 for(int i=0; i<1000; i++){
-				ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);
-				
-				Collections.shuffle(temp_list);
-				
-				write_block_list_into_txt(writer, file, temp_list);
-				
-				transfer_blocks_into_matrix(temp_list);
-			 }
-			
-			*/
-			
-			
 			//close buffer_writer
 			int sum_snps = 0;
 			for(int i=0; i<temp_SNP_list.size(); i++){
@@ -125,10 +109,78 @@ public class Write_blocks_into_txt_all565_individuals {
 		
 		writer.close(); 
 		
+		
+		//transfer snp-blocks into 0,1, or 2 strings, and inverse the matrix, then print the inversed matrix to a txt document;
+		//pass all 565 individuals' SNP blocks arraylist, shuffle order, total snp numbers, and routine;
+		inverse_matrix_write2txt(all565_snp_blocks, routine, 0);
+		
 	}//end main();
 	
 	
 	
+	/*******************
+	 * In the inversed matrix, each col represents one individual
+	 * each row represents for a given index, an individual has what type of SNP
+	 * 
+	 * @param all565_snp_blocks
+	 * @param routine
+	 * @param shuffle_num
+	 * @throws IOException 
+	 */
+	private static void inverse_matrix_write2txt( ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, String routine, int shuffle_num) throws IOException {
+		// TODO Auto-generated method stub
+		int sum_snps = 0;
+		for(int i=0; i<all565_snp_blocks.get(0).size(); i++){
+			sum_snps += all565_snp_blocks.get(0).get(i).getCount();
+		}
+		
+		System.out.println("Shuffle #" + shuffle_num + " done! There are " + sum_snps + " snps in total.");
+		
+		//initial an array of SNPs string;
+		//there are 229,860 SNPs for any individual, and there are 565 individuals;
+		//so, we create 229.860 String[], for each string[i], the length will be 565;
+		String[] snp_row = new String[sum_snps]; 
+		
+		for(int i=0; i<all565_snp_blocks.size(); i++){
+				
+			String temp_str = "";
+			for(int j=0; j<all565_snp_blocks.get(i).size(); j++){
+				
+				SNP_Block temp_block = all565_snp_blocks.get(i).get(j);
+				
+				for(int k=0; k<temp_block.getCount(); k++){
+					
+					temp_str += temp_block.getSNP();
+				}
+								
+			}
+			
+			for(int j=0; j<temp_str.length(); j++){
+				
+				snp_row[i] += temp_str.charAt(j);
+			}
+			
+			
+		}//end for i<all565_snp_blocks.size() loop;
+		
+		System.out.println(" Write this group of individuals' SNP matrix to a txt document.");
+		
+		File file = new File(routine + shuffle_num + "matrix.txt");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		
+		
+		//write each row to the txt file;
+		for(int i=0; i<snp_row.length; i++){
+			
+			writer.write(snp_row[i] + "\n");
+		}
+		
+		writer.close();;
+		
+	} //end inverse_matrix_write2txt() method;
+
+
+
 
 	/**************************************************************
 	 * get_snp_blocks_from_one_chromosome() method
