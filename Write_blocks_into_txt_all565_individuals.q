@@ -5,4 +5,4 @@
 #SBATCH --mem-per-cpu=8G
 #SBATCH --nodes=1
 #SBATCH --job-name=InvMatrix
-java D1003_inverse_huge_matrix_file
+java Write_blocks_into_txt_all565_individuals
