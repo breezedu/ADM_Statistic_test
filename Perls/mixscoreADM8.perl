@@ -3,8 +3,7 @@ use strict;
 # ----- This script runs the score MIX. It assumes the genotype data is in integer format.
 
 unless ( @ARGV == 4 )  {
-		print "usage: mixscore.perl <genotypefile> <localancfile> <phenotypefile> <globalancfile>
-";
+		print "usage: mixscore.perl <genotypefile> <localancfile> <phenotypefile> <globalancfile>\n";
   exit(1);
 }
 my $fg = $ARGV[0];
@@ -56,8 +55,7 @@ printf OUT "phenofile:$fp
 ";
 printf OUT "thetafile:$ft
 ";
-printf OUT "outfile:mixscore_shuffle8.out
-";
+printf OUT "outfile:mixscore_shuffle8.out\n";
 close(OUT);
 my $cmd = "./bin/mixscore ADM parameters";
 system($cmd);
