@@ -85,6 +85,7 @@ public class D1020_write_perl_scripts {
 		
 		String[] perl = new String[40];
 		
+		
 		for(int i=0; i<1000; i++){
 			
 			perl[0] = "#!/usr/bin/perl";
@@ -141,23 +142,23 @@ public class D1020_write_perl_scripts {
 			perl[39] = "  exit(1);";
 			perl[40] = "}";
 			
-			my $nsnps = $n1;
+			perl[41] = "my $nsnps = $n1;"; 
+			perl[42] = "\n";
 			
+			perl[43] = "open(OUT,\">parameters\");";
+			perl[44] = "printf OUT \"nsamples:$nsamples\n\";";
+			perl[45] = "printf OUT \"nsnps:$nsnps\n\";";
+			perl[46] = "printf OUT \"genofile:$fg\n\";";
+			perl[39] = "printf OUT \"ancfile:$fa\n\";";
+			perl[39] = "printf OUT \"phenofile:$fp\n\";";
+			perl[39] = "printf OUT \"thetafile:$ft\n\";";
+			perl[39] = "printf OUT \"outfile:mixscore_shuffle0.out\n\";";
+			perl[39] = "close(OUT);";
 			
-			open(OUT,">parameters");
-			printf OUT "nsamples:$nsamples\n";
-			printf OUT "nsnps:$nsnps\n";
-			printf OUT "genofile:$fg\n";
-			printf OUT "ancfile:$fa\n";
-			printf OUT "phenofile:$fp\n";
-			printf OUT "thetafile:$ft\n";
-			printf OUT "outfile:mixscore_shuffle0.out\n";
-			close(OUT);
+			perl[39] = "my $cmd = \"./bin/mixscore ADM parameters\";";
+			perl[39] = "system($cmd);";
 			
-			my $cmd = "./bin/mixscore ADM parameters";
-			system($cmd);
-			
-			printf "Output of MIX score (%d samples, %d SNPs) is in mixscore.out\n", $nsamples, $nsnps;
+			perl[39] = "printf \"Output of MIX score (%d samples, %d SNPs) is in "+ i + "mixscore.out\n\", $nsamples, $nsnps;";
 
 			
 			
