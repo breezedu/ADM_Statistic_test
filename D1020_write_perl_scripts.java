@@ -1,5 +1,10 @@
 package data_manipulating;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /***********
  * 
  * @author Jeff
@@ -50,6 +55,7 @@ public class D1020_write_perl_scripts {
 		my $nsamples = $n1;
 		
 		# ----- Get number of snps
+	 
 		
 		@E = split(/[\s]+/," " . `wc -l $fg`);
 		$n1 = $E[1];
@@ -79,14 +85,15 @@ public class D1020_write_perl_scripts {
 		system($cmd);
 		
 		printf "Output of MIX score (%d samples, %d SNPs) is in mixscore.out\n", $nsamples, $nsnps;
-
+		
+	 * @throws IOException 
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		
-		String[] perl = new String[40];
+		String[] perl = new String[55];
 		
 		
-		for(int i=0; i<1000; i++){
+		for(int i=0; i<10; i++){
 			
 			perl[0] = "#!/usr/bin/perl";
 			perl[1] = "use strict;"; 
@@ -149,20 +156,34 @@ public class D1020_write_perl_scripts {
 			perl[44] = "printf OUT \"nsamples:$nsamples\n\";";
 			perl[45] = "printf OUT \"nsnps:$nsnps\n\";";
 			perl[46] = "printf OUT \"genofile:$fg\n\";";
-			perl[39] = "printf OUT \"ancfile:$fa\n\";";
-			perl[39] = "printf OUT \"phenofile:$fp\n\";";
-			perl[39] = "printf OUT \"thetafile:$ft\n\";";
-			perl[39] = "printf OUT \"outfile:mixscore_shuffle0.out\n\";";
-			perl[39] = "close(OUT);";
+			perl[47] = "printf OUT \"ancfile:$fa\n\";";
+			perl[48] = "printf OUT \"phenofile:$fp\n\";";
+			perl[49] = "printf OUT \"thetafile:$ft\n\";";
+			perl[50] = "printf OUT \"outfile:mixscore_shuffle" + i + ".out\n\";";
+			perl[51] = "close(OUT);";
 			
-			perl[39] = "my $cmd = \"./bin/mixscore ADM parameters\";";
-			perl[39] = "system($cmd);";
+			perl[52] = "my $cmd = \"./bin/mixscore ADM parameters\";";
+			perl[53] = "system($cmd);";
 			
-			perl[39] = "printf \"Output of MIX score (%d samples, %d SNPs) is in "+ i + "mixscore.out\n\", $nsamples, $nsnps;";
-
+			perl[54] = "printf \"Output of MIX score (%d samples, %d SNPs) is in "+ i + "mixscore.out\n\", $nsamples, $nsnps;";
 			
 			
+			//initial the output file
+			File output = new File("D:/GitHub/ADM_Statistic_test/Perls/mixscoreADM" + i + ".perl");
+			
+			//create a buffer writer
+			BufferedWriter outWriter = new BufferedWriter(new FileWriter(output));
+			
+			//write all perl lines to a perl script
+			for(int j=0; j<55; j++){
+				
+				outWriter.write(perl[j]  + "\n");
+			}
+					
+			outWriter.close();
 		}
+		
+		
 		
 	}//end main()
 

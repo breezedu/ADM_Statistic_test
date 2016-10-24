@@ -56,7 +56,7 @@ printf OUT "phenofile:$fp
 ";
 printf OUT "thetafile:$ft
 ";
-printf OUT "outfile:mixscore_shuffle0.out
+printf OUT "outfile:mixscore_shuffle7.out
 ";
 close(OUT);
 my $cmd = "./bin/mixscore ADM parameters";
