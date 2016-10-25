@@ -42,22 +42,15 @@ unless ( $n1 == $n2 )  {
 my $nsnps = $n1;
 
 
-open(OUT,">parameters");
-printf OUT "nsamples:$nsamples
-";
-printf OUT "nsnps:$nsnps
-";
-printf OUT "genofile:$fg
-";
-printf OUT "ancfile:$fa
-";
-printf OUT "phenofile:$fp
-";
-printf OUT "thetafile:$ft
-";
+open(OUT,">parameters5");
+printf OUT "nsamples:$nsamples\n";
+printf OUT "nsnps:$nsnps\n";
+printf OUT "genofile:$fg\n";
+printf OUT "ancfile:$fa\n";
+printf OUT "phenofile:$fp\n";
+printf OUT "thetafile:$ft\n";
 printf OUT "outfile:mixscore_shuffle5.out\n";
 close(OUT);
-my $cmd = "./bin/mixscore ADM parameters";
+my $cmd = "./bin/mixscore ADM parameters5";
 system($cmd);
-printf "Output of MIX score (%d samples, %d SNPs) is in 5mixscore.out
-", $nsamples, $nsnps;
+printf "Output of MIX score (%d samples, %d SNPs) is in mixscore_shuffle5.out\n", $nsamples, $nsnps;

@@ -1,8 +1,0 @@
-#!/bin/sh
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=jeff.du@duke.edu
-#SBATCH -c 2
-#SBATCH --mem-per-cpu=5G
-#SBATCH --nodes=1
-#SBATCH --job-name=mixscore0
-perl mixscoreADM0.perl /work/AndrewGroup/ADM_test/ADM_Statistic_Data/shuffled/0matrix.txt ../localancestry.anc ../admix.pheno ../globalancestry.theta
