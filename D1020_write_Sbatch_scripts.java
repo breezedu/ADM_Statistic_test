@@ -1,5 +1,10 @@
 package data_manipulating;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /***********
  * 
  * @author Jeff
@@ -25,9 +30,10 @@ public class D1020_write_Sbatch_scripts {
 		
 	 * 
 	 * @param args
+	 * @throws IOException 
 	 */
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		
 		String[] sbatchs = new String[8];
 		
@@ -40,14 +46,28 @@ public class D1020_write_Sbatch_scripts {
 			sbatchs[3] = "#SBATCH -c 2";
 			sbatchs[4] = "#SBATCH --mem-per-cpu=5G";
 			sbatchs[5] = "#SBATCH --nodes=1";
-			sbatchs[6] = "#SBATCH --job-name=mixscore"; 
+			sbatchs[6] = "#SBATCH --job-name=mixs" + i + "th"; 
 			
 			//update the name of each job;
-			sbatchs[6] += i;
+			//sbatchs[6] += i;
 			
-			sbatchs[7] = "perl mixscoreADM" + i + ".perl /work/AndrewGroup/ADM_test/ADM_Statistic_Data/shuffled/" + i + "matrix.txt ../localancestry.anc ../admix.pheno ../globalancestry.theta";
+			sbatchs[7] = "perl mixscoreADM" + i 
+					+ ".perl /work/AndrewGroup/ADM_test/ADM_Statistic_Data/shuffled/" + i 
+					+ "matrix.txt /work/AndrewGroup/ADM_test/AdmixScore/localancestry.anc /work/AndrewGroup/ADM_test/AdmixScore/admix.pheno /work/AndrewGroup/ADM_test/AdmixScore/globalancestry.theta";
 			
 			
+			File output = new File("D:/GitHub/ADM_Statistic_test/Sbatches/sbatch_mixscoreADM.q" + i);
+			
+			//create a buffer writer
+			BufferedWriter outWriter = new BufferedWriter(new FileWriter(output));
+			
+			//write all perl lines to a perl script
+			for(int j=0; j<8; j++){
+				
+				outWriter.write(sbatchs[j]  + "\n");
+			}
+					
+			outWriter.close();
 			
 			
 		}
