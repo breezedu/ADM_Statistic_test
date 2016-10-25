@@ -93,7 +93,7 @@ public class D1020_write_perl_scripts {
 		String[] perl = new String[55];
 		
 		
-		for(int i=0; i<10; i++){
+		for(int i=0; i<1001; i++){
 			
 			perl[0] = "#!/usr/bin/perl";
 			perl[1] = "use strict;"; 
@@ -102,7 +102,7 @@ public class D1020_write_perl_scripts {
 			perl[3] = "";
 			
 			perl[4] = "unless ( @ARGV == 4 )  {";
-			perl[5] = "		print \"usage: mixscore.perl <genotypefile> <localancfile> <phenotypefile> <globalancfile>\n\";"; 
+			perl[5] = "		print \"usage: mixscore.perl <genotypefile> <localancfile> <phenotypefile> <globalancfile>\\n\";"; 
 			perl[6] = "  exit(1);";
 			perl[7] = "}"; 
 			
@@ -152,20 +152,20 @@ public class D1020_write_perl_scripts {
 			perl[41] = "my $nsnps = $n1;"; 
 			perl[42] = "\n";
 			
-			perl[43] = "open(OUT,\">parameters\");";
-			perl[44] = "printf OUT \"nsamples:$nsamples\n\";";
-			perl[45] = "printf OUT \"nsnps:$nsnps\n\";";
-			perl[46] = "printf OUT \"genofile:$fg\n\";";
-			perl[47] = "printf OUT \"ancfile:$fa\n\";";
-			perl[48] = "printf OUT \"phenofile:$fp\n\";";
-			perl[49] = "printf OUT \"thetafile:$ft\n\";";
-			perl[50] = "printf OUT \"outfile:mixscore_shuffle" + i + ".out\n\";";
+			perl[43] = "open(OUT,\">parameters" + i + "\");";
+			perl[44] = "printf OUT \"nsamples:$nsamples\\n\";";
+			perl[45] = "printf OUT \"nsnps:$nsnps\\n\";";
+			perl[46] = "printf OUT \"genofile:$fg\\n\";";
+			perl[47] = "printf OUT \"ancfile:$fa\\n\";";
+			perl[48] = "printf OUT \"phenofile:$fp\\n\";";
+			perl[49] = "printf OUT \"thetafile:$ft\\n\";";
+			perl[50] = "printf OUT \"outfile:mixscore_shuffle" + i + ".out\\n\";";
 			perl[51] = "close(OUT);";
 			
-			perl[52] = "my $cmd = \"./bin/mixscore ADM parameters\";";
+			perl[52] = "my $cmd = \"./bin/mixscore ADM parameters" + i + "\";";
 			perl[53] = "system($cmd);";
 			
-			perl[54] = "printf \"Output of MIX score (%d samples, %d SNPs) is in "+ i + "mixscore.out\n\", $nsamples, $nsnps;";
+			perl[54] = "printf \"Output of MIX score (%d samples, %d SNPs) is in mixscore_shuffle" + i + ".out\\n\", $nsamples, $nsnps;";
 			
 			
 			//initial the output file
@@ -179,7 +179,8 @@ public class D1020_write_perl_scripts {
 				
 				outWriter.write(perl[j]  + "\n");
 			}
-					
+			
+			System.out.println("output file: " + i + " finished.");
 			outWriter.close();
 		}
 		
