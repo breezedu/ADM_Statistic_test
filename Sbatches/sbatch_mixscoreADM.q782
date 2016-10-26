@@ -4,5 +4,5 @@
 #SBATCH -c 2
 #SBATCH --mem-per-cpu=5G
 #SBATCH --nodes=1
-#SBATCH --job-name=mixs782th782
+#SBATCH --job-name=mixs782th
 perl mixscoreADM782.perl /work/AndrewGroup/ADM_test/ADM_Statistic_Data/shuffled/782matrix.txt /work/AndrewGroup/ADM_test/AdmixScore/localancestry.anc /work/AndrewGroup/ADM_test/AdmixScore/admix.pheno /work/AndrewGroup/ADM_test/AdmixScore/globalancestry.theta
