@@ -1,0 +1,7 @@
+nsamples:565
+nsnps:229860
+genofile:/work/AndrewGroup/ADM_test/ADM_Statistic_Data/shuffled/798matrix.txt
+ancfile:/work/AndrewGroup/ADM_test/AdmixScore/localancestry.anc
+phenofile:/work/AndrewGroup/ADM_test/AdmixScore/admix.pheno
+thetafile:/work/AndrewGroup/ADM_test/AdmixScore/globalancestry.theta
+outfile:mixscore_shuffle798.out
