@@ -20,7 +20,7 @@ public class D1101_merge_all_mixscore_outs {
 		 * 
 		 */
 		
-		String[][] mixScores = new String[1001][229860];
+		Double[][] mixScores = new Double[1001][229860];
 		
 		for(int i=0; i<1001; i++){
 			
@@ -36,10 +36,8 @@ public class D1101_merge_all_mixscore_outs {
 			int index = 0;
 			
 			while(readin.hasNextLine()){
-				
-				Double currStr = Double.parseDouble( readin.nextLine() );
-				
-				mixScores[i][index] = currStr + "";
+											
+				mixScores[i][index] = Double.parseDouble( readin.nextLine() );
 				
 				index ++;
 				
@@ -71,13 +69,14 @@ public class D1101_merge_all_mixscore_outs {
 		//write the matrix into document in an inversed way.
 		for(int i=0; i<229860; i++){
 			
-			for(int j=0; j<1001; j++){
+			for(int j=0; j<1000; j++){
 				
-				writer.write( mixScores[j][i] );
+				writer.write( mixScores[j][i] + "\t");
 				
 			}
 			
-			writer.write("\n");
+			writer.write(" mixScore[1001][i] " + "\n");
+			
 		}
 		
 		//close the writer;
