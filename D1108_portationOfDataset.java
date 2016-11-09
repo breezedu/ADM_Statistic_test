@@ -19,16 +19,20 @@ public class D1108_portationOfDataset {
 		//create a file scanner:
 		Scanner readin = new Scanner(new FileReader(file)); 
 		
+		//initial the counts for 0, 1, and 2;
 		int ones = 0;
 		int twos = 0;
 		int zeros = 0;
 		
+		//use a while loop to check each line, then check each character in the line if it is '0', '1', or '2';
 		while(readin.hasNextLine()){
 										
 			String currStr = readin.nextLine();
 			
+			//check each character
 			for(int i=0; i<currStr.length(); i++){
 				
+				//use a switch-case loop;
 				switch( currStr.charAt(i) ){
 					
 				case '0': zeros ++; break;
