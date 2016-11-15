@@ -1,0 +1,8 @@
+nsamples:565
+nsnps:229860
+genofile:nothing
+ancfile:/work/AndrewGroup/ADM_test/ADM_Statistic_Data/transshuffled/994_transed_matrix.txt
+phenofile:/work/AndrewGroup/ADM_test/AdmixScore/admix.pheno
+thetafile:/work/AndrewGroup/ADM_test/AdmixScore/globalancestry.theta
+orfile:1115_or_994.out
+outfile:mixscore_shuffled994.out
