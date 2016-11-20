@@ -119,6 +119,14 @@ public class D1117_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 			for(int j=0; j<temp_list.size(); j++){
 
 				Collections.shuffle(temp_list.get(j));
+				
+				//shuffle another 100 times;
+				for(int sh =0; sh<100; sh++){
+					
+					Collections.shuffle(temp_list.get(j));
+					
+				}
+				
 				Collections.shuffle(temp_list.get(j));
 			
 			}
