@@ -76,7 +76,15 @@ public class D1120_proportionOfDataset {
 
 	
 	/****************
+	 * Pass the routine and the file name to the method;
 	 * 
+	 * Since we have already known there are 229860 lines in each dataset;
+	 *  
+	 * The method will sum the counts of 0s, 1s, and 2s for the first 1000 lines;
+	 * Then, scan line by line till 228860th line;
+	 * And, count the sum of 1s, 2s, and 0s for the last 1000 lines. 
+	 *  
+	 * Then read 
 	 * @param path
 	 * @param file_name
 	 * @throws FileNotFoundException
@@ -103,7 +111,7 @@ public class D1120_proportionOfDataset {
 												
 			String currStr = readin.nextLine();
 					
-			//check each character
+			//1st, check each character
 			for(int i=0; i<currStr.length(); i++){
 						
 				//use a switch-case loop;
@@ -123,14 +131,14 @@ public class D1120_proportionOfDataset {
 		
 		System.out.println("File: " + file_name + ". There are: " + zeros + " zeros, " + ones + " ones, and " + twos + " twos in the first " + line + " lines.");
 		
-		//read lines from 1000 to 228860
+		//2nd, scan/read lines from 1000 to 228860
 		while( line < 228860){
 			readin.nextLine(); 
 			line ++; 
 		}
 		
 		
-		//check the last 1000 lines:
+		//3rd, check the last 1000 lines:
 		//reset ones, twos, and zeros;
 		ones = 0;
 		twos = 0;
