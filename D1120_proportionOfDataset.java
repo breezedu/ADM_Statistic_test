@@ -36,6 +36,8 @@ public class D1120_proportionOfDataset {
 		
 		/*************
 		 * 
+		 * There are: 80600308 zeros, 45138703 ones, and 4131889 twos.
+		 *	
 		 * 
 		 	File: 0matrix.txt. There are: 341434 zeros, 212051 ones, and 11515 twos in the first 1000 lines.
 			File: 0matrix.txt. There are: 332628 zeros, 216079 ones, and 16293 twos in the last 1000 lines. 
