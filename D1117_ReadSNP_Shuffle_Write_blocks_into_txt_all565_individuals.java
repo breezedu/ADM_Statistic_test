@@ -121,7 +121,7 @@ public class D1117_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 				Collections.shuffle(temp_list.get(j));
 				
 				//shuffle another 100 times;
-				for(int sh =0; sh<100; sh++){
+				for(int sh =0; sh<200; sh++){
 					
 					Collections.shuffle(temp_list.get(j));
 					
@@ -320,7 +320,7 @@ public class D1117_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 			//then put each snp block object into an arrayList
 			for(int i=0; i<blocks_Num.length; i+=2){
 				
-				SNP_Block currBlock = creat_SNP_Blocks(2 - blocks_Num[i], blocks_Num[i+1]);
+				SNP_Block currBlock = creat_SNP_Blocks(blocks_Num[i], blocks_Num[i+1]);
 				
 				SNP_block_list.add(currBlock);
 			}
@@ -345,10 +345,10 @@ public class D1117_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 		//1st, determine SNP type, 11, 01, or 00
 		int snp_type = 0;
 		if(snp == 11)	{
-			snp_type = 2;
+			snp_type = 0;
 			
 		} else if(snp == 0){
-			snp_type = 0;
+			snp_type = 2;
 			
 		} else if(snp == 1){
 			snp_type = 1;
