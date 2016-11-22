@@ -184,13 +184,33 @@ public class D1122_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 			
 		} //end for i<snp_blocks.size() loop;
 		
-		System.out.println("\nThe first blocks: " + firstblock_0 + " 0-blocks, " + firstblock_1 + " 1-blocks, " + firstblock_2 + " 2-blocks..");
+		System.out.println("\nThe first blocks:   0-blocks, 1-blocks, 2-blocks..");
+		print_ProportionsOfThree(firstblock_0, firstblock_1, firstblock_2);
 		
-		System.out.println("The last blocks: " + lastblock_0 + " 0-blocks, " + lastblock_1 + " 1-blocks, " + lastblock_2 + " 2-blocks..");
+		System.out.println(" The last blocks:");
+		print_ProportionsOfThree(lastblock_0, lastblock_1, lastblock_2);
 	
-		System.out.println("Over all, there are " + blocks_0 + " 0-blocks; " + blocks_1 + " 1-blocks; " + blocks_2 + " 2-blocks. \n");
+		System.out.println("Over all blocks:");
+		print_ProportionsOfThree(blocks_0, blocks_1, blocks_2);
 		
 	}//end check_Block_Counts() method;
+
+
+
+	private static void print_ProportionsOfThree(int firstblock_0, int firstblock_1, int firstblock_2) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("\t\t\t" + firstblock_0 + "\t" + firstblock_1 + "\t" + firstblock_2);
+		
+		System.out.print("\t\t\t" );
+		System.out.printf(  "%.2f", 100*(double)firstblock_0/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.print("%\t");
+		System.out.printf(	"%.2f", 100*(double)firstblock_1/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.print("%\t");
+		System.out.printf(	"%.2f", 100*(double)firstblock_2/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.println("%");;
+		
+	}
 
 
 
