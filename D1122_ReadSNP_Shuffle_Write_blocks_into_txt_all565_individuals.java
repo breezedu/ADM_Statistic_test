@@ -122,7 +122,7 @@ public class D1122_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 		//Pass the arrayList of 565 individuals to a method Shuffling_SNP_blocks(), to shuffle the dataset based on SNP-blocks 
 		// write the shuffled SNP blocks into a matrix, inverse the matrix and write it into a txt document;
 		
-		Shuffling_SNP_blocks(all565_snp_blocks, 0, routine);
+		Shuffling_SNP_blocks(all565_snp_blocks, 10, routine);
 		
 		
 		
@@ -142,6 +142,10 @@ public class D1122_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 		int firstblock_0 = 0;
 		int firstblock_1 = 0;
 		int firstblock_2 = 0;
+		int lastblock_0 = 0;
+		int lastblock_1 = 0;
+		int lastblock_2 = 0;
+		
 		
 		for(int i=0; i<snp_blocks.size(); i++){
 			
@@ -167,12 +171,24 @@ public class D1122_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 			
 			} //end switch() case
 			
+			int len = temp.size(); 
+			//only count the last block;
+			switch(temp.get(len-1).getSNP()){
+			
+			case 0: lastblock_0 ++; break;
+			case 1: lastblock_1 ++; break;
+			case 2: lastblock_2 ++; break;
+			
+			} //end switch() case
+			
 			
 		} //end for i<snp_blocks.size() loop;
 		
-		System.out.println("The first blocks: " + firstblock_0 + " 0-blocks, " + firstblock_1 + " 1-blocks, " + firstblock_2 + " 2-blocks..");
-			
-		System.out.println("Over all, there are " + blocks_0 + " 0-blocks; " + blocks_1 + " 1-blocks; " + blocks_2 + " 2-blocks.");
+		System.out.println("\nThe first blocks: " + firstblock_0 + " 0-blocks, " + firstblock_1 + " 1-blocks, " + firstblock_2 + " 2-blocks..");
+		
+		System.out.println("The last blocks: " + lastblock_0 + " 0-blocks, " + lastblock_1 + " 1-blocks, " + lastblock_2 + " 2-blocks..");
+	
+		System.out.println("Over all, there are " + blocks_0 + " 0-blocks; " + blocks_1 + " 1-blocks; " + blocks_2 + " 2-blocks. \n");
 		
 	}//end check_Block_Counts() method;
 
@@ -207,6 +223,8 @@ public class D1122_ReadSNP_Shuffle_Write_blocks_into_txt_all565_individuals {
 			
 			}
 			// Collections.shuffle(temp_list);
+			
+			check_Block_Counts(temp_list);
 			
 			inverse_matrix_write2txt(temp_list, routine, i);
 			
