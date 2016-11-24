@@ -9,6 +9,97 @@
 
 
 
+
+
+##########################################################################################
+##########################################################################################
+### 
+###   Plot the Proportion of Case, control, and total individuls. 
+###
+##########################################################################################
+plot.func <- function(num){
+  
+  ## set up the main title txt, only the 0matrix.txt is the unshuffled dataset; 
+  if(num == 0){
+    main.txt <- 'Unshuffled'
+  } else {
+    main.txt <- 'Shuffled'
+  }
+  
+  ## paste routine, file name to a string; 
+  file.read <- paste("D:/GitHubRepositories/ADM_Statistic_Data/shuffled/proportion_",num,"matrix.txt", sep = "")
+  
+  ## readin table, 
+  ## there are 3 columns in the table, V1~total, V2~case, V3~control
+  proportion.original <- read.table(file.read, header=F)
+  
+  proportion.ori.all <- proportion.original$V1
+  proportion.ori.case <- proportion.original$V2
+  proportion.ori.control <- proportion.original$V3
+  
+  ## set the range of x axis
+  end <- length(proportion.ori.all)
+  #end <- 100000
+  
+  ## plot total
+  plot(x = 1:end, 
+       y = proportion.ori.all[1:end], 
+       pch = ".",
+       ylim = c(0,0.5),
+       xlab = 'SNP 0:229860',
+       ylab = 'proportion of Case/Control/All',
+       main = main.txt,
+       cex=1)
+  
+  ## plot case, in red;
+  points( proportion.ori.case[1:end], pch = ".", cex =1, col="red")
+  
+  ## plot control, in blue; 
+  points( proportion.ori.control[1:end], pch = ".", cex = 1, col = "blue")
+  
+  ## add legend; 
+  legend(x=1,y=0.5,cex=1,lty=rep(1,3),
+         legend=c('total','case','control'),
+  col=c('black','red','blue'))
+  
+} ## end plot.function;
+
+
+## plot unshuffled dataset plus another 3 shuffled datasets; 
+png(file = '1123_proportion_plot1.png', width = 10, height = 10, units = 'in', res = 200)
+
+par(mar=c(4,4,4,4))
+
+par(mfrow = c(2, 2))
+
+for( i in 0:3){
+  plot.func(i)
+}
+
+dev.off()
+
+
+## plot 4 shuffled datasets; 
+png(file = '1123_proportion_plot2.png', width = 10, height = 10, units = 'in', res = 200)
+
+par(mar=c(4,4,4,4))
+
+par(mfrow = c(2, 2))
+
+for( i in 4:7){
+  plot.func(i)
+}
+
+dev.off()
+
+
+#############################################################
+## 
+## Plot mixscore ADM results:
+## 
+#############################################################
+
+
 unshuffled <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffle0.out", header = F)
 
 unshuffled <- unshuffled$V1
@@ -69,71 +160,3 @@ text(1, 50, labels = 'unshuffled')
 dev.off()
 
 par(mfrow = c(1,1))
-
-
-##########################################################################################
-##########################################################################################
-### 
-###   Plot the Proportion of Case, control, and total individuls. 
-###
-##########################################################################################
-plot.func <- function(num){
-  
-  if(num == 0){
-    main.txt <- 'Unshuffled'
-  } else {
-    main.txt <- 'Shuffled'
-  }
-  
-  file.read <- paste("D:/GitHubRepositories/ADM_Statistic_Data/shuffled/proportion_",num,"matrix.txt", sep = "")
-  proportion.original <- read.table(file.read, header=F)
-  proportion.ori.all <- proportion.original$V1
-  proportion.ori.case <- proportion.original$V2
-  proportion.ori.control <- proportion.original$V3
-  
-  end <- length(proportion.ori.all)
-  #end <- 100000
-  
-  plot(x = 1:end, 
-       y = proportion.ori.all[1:end], 
-       pch = ".",
-       ylim = c(0,0.5),
-       xlab = 'SNP 0:229860',
-       ylab = 'proportion of Case/Control/All',
-       main = main.txt,
-       cex=1)
-  
-  points( proportion.ori.case[1:end], pch = ".", cex =1, col="red")
-  points( proportion.ori.control[1:end], pch = ".", cex = 1, col = "blue")
-  
-  legend(x=1,y=0.5,cex=1,lty=rep(1,3),
-         legend=c('total','case','control'),
-  col=c('black','red','blue'))
-  
-} ## end plot.function;
-
-
-png(file = '1123_proportion_plot1.png', width = 10, height = 10, units = 'in', res = 200)
-
-par(mar=c(4,4,4,4))
-
-par(mfrow = c(2, 2))
-
-for( i in 0:3){
-  plot.func(i)
-}
-
-dev.off()
-
-
-png(file = '1123_proportion_plot2.png', width = 10, height = 10, units = 'in', res = 200)
-
-par(mar=c(4,4,4,4))
-
-par(mfrow = c(2, 2))
-
-for( i in 4:7){
-  plot.func(i)
-}
-
-dev.off()
