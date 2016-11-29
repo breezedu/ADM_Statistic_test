@@ -154,7 +154,7 @@ plot(x=1:end, y=unshuffled[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(50000, 18, labels = 'Unshuffled')
+text(200000, 18, labels = 'Unshuffled')
 
 ## grid.newpage()
 plot(x=1:end, y=shuffled1[1:end],
@@ -164,7 +164,7 @@ plot(x=1:end, y=shuffled1[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(50000, 18, labels = 'Shuffled #1')
+text(200000, 18, labels = 'Shuffled #1')
 
 plot(x=1:end, y=shuffled2[1:end],
      ylim = c(0,20),
@@ -173,7 +173,7 @@ plot(x=1:end, y=shuffled2[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(50000, 18, labels = 'Shuffled #2')
+text(200000, 18, labels = 'Shuffled #2')
 
 ## grid.newpage()
 
@@ -184,7 +184,8 @@ plot(x=1:end, y=shuffled3[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(50000, 18, labels = 'Shuffled #3')
+text(200000, 18, labels = 'Shuffled #3')
+
 
 dev.off()
 
