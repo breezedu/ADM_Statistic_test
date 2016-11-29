@@ -310,21 +310,43 @@ public class D1128_ReadSNP_PermutateShuffle_InverseMatrix_Write2txt {
 		
 		int[][] indiv = new int[indiv_sum][snps_sum];
 		
-		for(int i=0; i<all565_snp_blocks.size(); i++){
+		for(int indiv_num=0; indiv_num<all565_snp_blocks.size(); indiv_num++){
 			
-			int index = 0;	
-			
-			for(int j=0; j<all565_snp_blocks.get(i).size(); j++){
+			ArrayList<Integer> temp_indiv = new ArrayList<Integer>();
+			for(int j=0; j<all565_snp_blocks.get(indiv_num).size(); j++){
 				
-				SNP_Block temp_block = all565_snp_blocks.get(i).get(j);
+				SNP_Block temp_block = all565_snp_blocks.get(indiv_num).get(j);
 				
 				for(int k=0; k<temp_block.getCount(); k++){
 					
-					indiv[i][index] = temp_block.getSNP();
-					index ++;
-				}
+					temp_indiv.add( temp_block.getSNP() ); 
+					
+				} //end for k<temp_block.getCount() loop; 
 								
+			} //end for j<all565_snp_blocks.get().size() loop; 
+			
+			
+			//get a random pivot as a 'break' point in the ArrayList
+			// pivot = random(0 - 229860);
+			
+			int pivot = (int) (Math.random()*snps_sum);
+
+			//add the second half (pivot - end) to the array indiv[indiv_num][i]; 
+			for(int i = pivot; i<temp_indiv.size(); i++){
+				
+				indiv[indiv_num][i-pivot] = temp_indiv.get(i);
+				
+			} 
+			
+			//add the first half (0 - pivot) to the array indiv[indiv_num}[i];
+			
+			for(int i=0; i<pivot; i++){
+				
+				indiv[indiv_num][ i + snps_sum - pivot] = temp_indiv.get(i); 
 			}
+			
+			
+			
 						
 		//	System.out.println("transfer snp blocks to snp sequence for individual " + i + " done.");
 			
@@ -345,21 +367,9 @@ public class D1128_ReadSNP_PermutateShuffle_InverseMatrix_Write2txt {
 		//write each row to the txt file;
 		for(int i=0; i<snps_sum; i++){
 			
-			//get a random startpoint from 0 to indiv_sum
-			
-			int pivot = (int) (Math.random()*indiv_sum); 
-			
-			//write the second half, from pivot to indiv_sum; 
-			for(int j=pivot; j<indiv_sum; j++){
+			for(int j=0; j<indiv_sum; j++){
 				
 				writer.write(indiv[j][i] + "");
-			} 
-			
-			//write the first half from 0 to pivot; 
-			for(int j=0; j<pivot; j++){
-				
-				writer.write(indiv[j][i] + "");
-				
 			}
 			
 			writer.write("\n");	
