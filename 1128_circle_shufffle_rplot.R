@@ -101,63 +101,94 @@ dev.off()
 #############################################################
 
 
-unshuffled <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffle0.out", header = F)
+unshuffled <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled0.out", header = F)
 
 unshuffled <- unshuffled$V1
 
 
-shuffled1 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled1.out", header = F)
+shuffled1 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled1.out", header = F)
 
 shuffled1 <- shuffled1$V1
 
 
-shuffled2 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled2.out", header = F)
+shuffled2 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled2.out", header = F)
 
 shuffled2 <- shuffled2$V1
 
-shuffled3 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled3.out", header = F)
+shuffled3 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled3.out", header = F)
 
 shuffled3 <- shuffled3$V1
 
-shuffled4 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled4.out", header = F)
+shuffled4 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled4.out", header = F)
 
 shuffled4 <- shuffled4$V1
 
-shuffled5 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled5.out", header = F)
+shuffled5 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled5.out", header = F)
 
-shuffled5 <- shuffled3$V1
+shuffled5 <- shuffled5$V1
 
 
-shuffled9 <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/Out/mixscore_shuffled9.out", header = F)
+shuffled9 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled9.out", header = F)
 
 shuffled9 <- shuffled9$V1
 
 
 
 
-par(mfrow = c(1, 1))
 
-par(mar = rep(2, 4))
 
-pdf('shuffledandunshuffled.pdf')
+
+
+
+png(file = '1129_shuffledandunshuffled.png', width = 10, height = 10, units = 'in', res = 200)
+
+end <- length(unshuffled)
+par(mfrow = c(2, 2))
+par(mar = rep(5, 4))
 
 ## par(mfrow = c(3, 1))
-plot(x=1:100000, y=unshuffled[1:100000],
-     xlab = 'unshuffled')
-text(1, 30, labels = 'unshuffled')
+plot(x=1:end, y=unshuffled[1:end],
+     ylim = c(0,20),
+     pch = '.',
+     cex = 4,
+     xlab = 'Range 1:229860',
+     ylab = 'mixscore ADM'
+     )
+text(50000, 18, labels = 'Unshuffled')
+
+## grid.newpage()
+plot(x=1:end, y=shuffled1[1:end],
+     ylim = c(0,20),
+     pch = '.',
+     cex = 4,
+     xlab = 'Range 1:229860',
+     ylab = 'mixscore ADM'
+     )
+text(50000, 18, labels = 'Shuffled #1')
+
+plot(x=1:end, y=shuffled2[1:end],
+     ylim = c(0,20),
+     pch = '.',
+     cex = 4,
+     xlab = 'Range 1:229860',
+     ylab = 'mixscore ADM'
+     )
+text(50000, 18, labels = 'Shuffled #2')
 
 ## grid.newpage()
 
-plot(x=1:100000, y=shuffled2[1:100000],
-     xlab = 'shuffled #2')
-text(1, 40, labels = 'unshuffled')
-
-## grid.newpage()
-
-plot(x=1:100000, y=shuffled3[1:100000],
-     xlab = 'shuffled #3')
-text(1, 50, labels = 'unshuffled')
+plot(x=1:end, y=shuffled3[1:end],
+     ylim = c(0,20),
+     pch = '.',
+     cex = 4,
+     xlab = 'Range 1:229860',
+     ylab = 'mixscore ADM'
+     )
+text(50000, 18, labels = 'Shuffled #3')
 
 dev.off()
+
+
+
 
 par(mfrow = c(1,1))
