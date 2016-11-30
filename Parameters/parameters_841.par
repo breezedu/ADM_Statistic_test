@@ -1,8 +1,8 @@
 nsamples:565
 nsnps:229860
 genofile:nothing
-ancfile:/work/AndrewGroup/ADM_test/ADM_Statistic_Data/transshuffled/841_transed_matrix.txt
+ancfile:/work/AndrewGroup/ADM_test/ADM_Statistic_Data/CircleShuffle/841matrix.txt
 phenofile:/work/AndrewGroup/ADM_test/AdmixScore/admix.pheno
 thetafile:/work/AndrewGroup/ADM_test/AdmixScore/globalancestry.theta
-orfile:1115_or_841.out
+orfile:1130_or_841.out.or
 outfile:mixscore_shuffled841.out
