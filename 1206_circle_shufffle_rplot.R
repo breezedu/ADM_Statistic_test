@@ -142,21 +142,27 @@ par(mar = rep(2, 4))
 pdf('shuffledandunshuffled.pdf')
 
 ## par(mfrow = c(3, 1))
-plot(x=1:100000, y=unshuffled[1:100000],
-     xlab = 'unshuffled')
-text(1, 30, labels = 'unshuffled')
+end <- 100000
+end <- length(unshuffled)
+
+
+plot(x=1:end, y=unshuffled[1:end],
+     xlab = 'unshuffled', 
+     ylab = 'mixscore ADM'
+     )
+text(10000, 15, labels = 'unshuffled')
 
 ## grid.newpage()
 
-plot(x=1:100000, y=shuffled2[1:100000],
+plot(x=1:end, y=shuffled2[1:end],
      xlab = 'shuffled #2')
-text(1, 40, labels = 'unshuffled')
+text(10000, 8, labels = 'shuffled #2')
 
 ## grid.newpage()
 
-plot(x=1:100000, y=shuffled3[1:100000],
+plot(x=1:end, y=shuffled3[1:end],
      xlab = 'shuffled #3')
-text(1, 50, labels = 'unshuffled')
+text(10000, 8, labels = 'shuffled #3')
 
 dev.off()
 
@@ -195,4 +201,4 @@ t.test(unshuffled, shuffled2)
 
 t.test(unshuffled, shuffled3)
 
-t.test(unshuffled)
+
