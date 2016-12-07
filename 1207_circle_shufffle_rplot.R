@@ -101,29 +101,29 @@ dev.off()
 #############################################################
 
 
-unshuffled <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled0.out", header = F)
+unshuffled <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled0.out", header = F)
 
 unshuffled <- unshuffled$V1
 
 
-shuffled1 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled1.out", header = F)
+shuffled1 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled1.out", header = F)
 
 shuffled1 <- shuffled1$V1
 
 
-shuffled2 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled2.out", header = F)
+shuffled2 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled2.out", header = F)
 
 shuffled2 <- shuffled2$V1
 
-shuffled3 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled3.out", header = F)
+shuffled3 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled3.out", header = F)
 
 shuffled3 <- shuffled3$V1
 
-shuffled4 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled4.out", header = F)
+shuffled4 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled4.out", header = F)
 
 shuffled4 <- shuffled4$V1
 
-shuffled5 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_cirshuffled5.out", header = F)
+shuffled5 <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/mixscore_shuffled5.out", header = F)
 
 shuffled5 <- shuffled5$V1
 
@@ -154,7 +154,7 @@ plot(x=1:end, y=unshuffled[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(200000, 18, labels = 'Unshuffled')
+text(50000, 18, labels = 'Unshuffled')
 
 ## grid.newpage()
 plot(x=1:end, y=shuffled1[1:end],
@@ -164,7 +164,7 @@ plot(x=1:end, y=shuffled1[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(200000, 18, labels = 'Shuffled #1')
+text(50000, 18, labels = 'Shuffled #1')
 
 plot(x=1:end, y=shuffled2[1:end],
      ylim = c(0,20),
@@ -173,7 +173,7 @@ plot(x=1:end, y=shuffled2[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(200000, 18, labels = 'Shuffled #2')
+text(50000, 18, labels = 'Shuffled #2')
 
 ## grid.newpage()
 
@@ -184,7 +184,7 @@ plot(x=1:end, y=shuffled3[1:end],
      xlab = 'Range 1:229860',
      ylab = 'mixscore ADM'
      )
-text(200000, 18, labels = 'Shuffled #3')
+text(50000, 18, labels = 'Shuffled #3')
 
 
 dev.off()
@@ -225,3 +225,32 @@ t.test(unshuffled, shuffled1)
 t.test(unshuffled, shuffled2)
 
 t.test(unshuffled, shuffled3)
+
+
+###############################
+## read in the whole huge matrix
+## 
+## Laptop/desktop could not handle a 229860*565 matrix 
+## data.mixscore <- read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/1204mixscore_matrix.txt", header = F)
+
+## a small size sample of mixscore matrix: 
+data.mixscore <- data.frame(unshuffled, shuffled1, shuffled2, shuffled3, shuffled4, shuffled5)
+
+## check head
+head(data.mixscore)
+row <- dim(data.mixscore)[1]
+col <- dim(data.mixscore)[2]
+
+## initial a vector of p.values
+p.value.vector <- rep(NA, col )
+
+## calculate p-values for each column: 
+for( i in 1:col){
+  
+  p.value.vector[i] <- t.test(data.mixscore[, i])$p.value
+  
+}
+                      
+## print out p-values: 
+p.value.vector
+                      
