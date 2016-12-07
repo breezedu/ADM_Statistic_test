@@ -162,13 +162,34 @@ dev.off()
 
 par(mfrow = c(1,1))
 
+
+
+##############################################
+## calculate P-values:
+##############################################
+
 summary(unshuffled)
+
 t.test(unshuffled)
+
 unshuffled.test <- t.test(unshuffled)
 unshuffled.pvalue <- unshuffled.test$p.value
 unshuffled.pvalue
+## [1] 0
 
+
+
+###### Welch 2 sample t-test
 t.test(unshuffled, shuffled1)
+
+# data:  unshuffled and shuffled1
+# t = 8.9794, df = 381670, p-value < 2.2e-16
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#   0.05387632 0.08396322
+# sample estimates:
+#   mean of x mean of y 
+# 1.210906  1.141986 
 
 t.test(unshuffled, shuffled2)
 
