@@ -27,12 +27,14 @@ public class Step6_1208_extract_Max_ADM_results {
 	public static void main(String[] args) throws IOException{
 		
 		/****************************************************************************************/
-		//step 1, read in the huge matrix
+		//step 0, define routine and file name
 		String routine = "D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/";
 		String filename = "1130mixscore_matrix.txt";
 		
 		filename = "1204mixscore_matrix.txt"; 
 		
+		//step 1, read in the huge matrix
+		//pass routine and file name to the get_mixscore_matrix() method, return a matrix[][]
 		double matrix[][] = get_mixscore_matrix(routine, filename); 
 		
  		int row = matrix.length; 
