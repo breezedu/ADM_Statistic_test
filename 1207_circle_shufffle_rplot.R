@@ -247,6 +247,7 @@ p.value.vector <- rep(NA, col )
 ## calculate p-values for each column: 
 for( i in 1:col){
   
+  t.test(data.mixscore[ , i]) 
   p.value.vector[i] <- t.test(data.mixscore[, i])$p.value
   
 }
