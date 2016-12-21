@@ -51,8 +51,20 @@ summary(maxMixscore2)
 summary(maxMixscore1)
 
 
+## get unshuflled data mixscore result
+mixUnshuffled <- read.table("D:/GitHub/ADM_Statistic_Data/shuffled_local_ancestry_out/mixscore_shuffled0.out", header = F)
+mixUnshuffled <- mixUnshuffled$V1
+
+## remove duplicated
+mixUnique.unshuffled <- unique(mixUnshuffled)
+sort(mixUnique.unshuffled)
+
+#### the 2nd max is 15.9254
+
 
 maxAll <- c(maxMixscore7, maxMixscore6, maxMixscore5, maxMixscore4, maxMixscore3, maxMixscore2, maxMixscore1) 
+
+
 
 maxUnshuffle <- maxMixscore1[1] 
 maxUnshuffle
@@ -61,7 +73,11 @@ length(maxAll)
 
 sum( maxUnshuffle < maxAll)
 
-sum( maxUnshuffle < maxAll) / length(maxAll) 
+sum( maxUnshuffle < maxAll) / (length(maxAll) - 7)
+
+
+sum( maxAll > 15.9254) -7
+(sum( maxAll > 15.9254) -7) / (length(maxAll)-7)
 
 
 
