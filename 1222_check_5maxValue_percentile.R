@@ -24,19 +24,18 @@ max.vectors <- rep(NA, 13)
 
 ### get the max ADM mixscore value from unshuffled dataset
 ### the first colum represent result from the unshuffled dataset
-test.vectors <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/2ndMaxmixscore_1.txt", header = F)
-test.vector <- test.vectors$V1
+test.vectors <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/5Max_mixscore_1.txt", header = F)
 
 summary(test.vector)
 # get the first max value
-max.unshuffled <- test.vector[1]
+max.unshuffled <- test.vectors[1, ]
 
 # print check
+max.unshuffled <- c(max.unshuffled$V1, max.unshuffled$V2, max.unshuffled$V3, max.unshuffled$V4, max.unshuffled$V5)
 max.unshuffled
 
-
 ## initial an empty vector, to store all max values from 10,000 datasets of shuffled datasets.
-vector.all <- NULL
+vector1st.all <- NULL
 
 
 #######################################################
@@ -49,7 +48,7 @@ vector.all <- NULL
 for( i in 1:10){
   
   ##// use paste() method to get routines for all 10 files
-  file.name <- paste(routine, 'max_mixscore_', i, '.txt', sep = '')
+  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
   
   ## check the filr name
   print(file.name)
@@ -60,7 +59,50 @@ for( i in 1:10){
   print( summary(max.vectors) )
   print( sum(max.vectors > max.unshuffled))
   
-  vector.all <- c(vector.all, max.vectors$V1)
+  vector1st.all <- c(vector1st.all, max.vectors$V1)
+}
+
+## check the length of the max.values.vector
+length(vector1st.all)
+
+## summary
+summary(vector1st.all)
+
+## 
+sum(vector1st.all > max.unshuffled[1])
+
+## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
+
+## check the percentile of maxium mixscore ADM results greater than that of the unshuffled dataset 
+sum(vector1st.all > max.unshuffled[1]) / (length(vector1st.all) - 10)
+
+
+####################
+##  [1] 0.0179    ##
+####################
+
+
+
+#######################################################
+## check the 2nd max
+#######################################################
+vector2nd.all <- NULL
+
+for( i in 1:10){
+  
+  ##// use paste() method to get routines for all 10 files
+  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
+  
+  ## check the filr name
+  print(file.name)
+  
+  ## read in table, then pick the first colum V1
+  max.vectors <- read.table(file.name, header = F )
+  
+  print( summary(max.vectors) )
+  print( sum(max.vectors > max.unshuffled))
+  
+  vector.all <- c(vector.all, max.vectors$V2)
 }
 
 ## check the length of the max.values.vector
@@ -70,17 +112,150 @@ length(vector.all)
 summary(vector.all)
 
 ## 
-sum(vector.all > max.unshuffled)
+sum(vector.all > max.unshuffled[2])
 
 ## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
 
 ## check the percentile of maxium mixscore ADM results greater than that of the unshuffled dataset 
-sum(vector.all > max.unshuffled) / (length(vector.all) - 10)
+sum(vector.all > max.unshuffled[2]) / (length(vector.all) - 10)
 
 
 ####################
-##  [1] 0.0179    ##
+##  [1] 0.02328    ##
 ####################
+
+
+
+#######################################################
+for( i in 1:10){
+  
+  ##// use paste() method to get routines for all 10 files
+  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
+  
+  ## check the filr name
+  print(file.name)
+  
+  ## read in table, then pick the first colum V1
+  max.vectors <- read.table(file.name, header = F )
+  
+  print( summary(max.vectors) )
+  print( sum(max.vectors > max.unshuffled))
+  
+  vector.all <- c(vector.all, max.vectors$V3)
+}
+
+## check the length of the max.values.vector
+length(vector.all)
+
+## summary
+summary(vector.all)
+
+## 
+sum(vector.all > max.unshuffled[3])
+
+## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
+
+## check the percentile of maxium mixscore ADM results greater than that of the unshuffled dataset 
+sum(vector.all > max.unshuffled[3]) / (length(vector.all) - 10)
+
+
+####################
+##  [1] 0.030712    ##
+####################
+
+
+
+#######################################################
+for( i in 1:10){
+  
+  ##// use paste() method to get routines for all 10 files
+  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
+  
+  ## check the filr name
+  print(file.name)
+  
+  ## read in table, then pick the first colum V1
+  max.vectors <- read.table(file.name, header = F )
+  
+  print( summary(max.vectors) )
+  print( sum(max.vectors > max.unshuffled))
+  
+  vector.all <- c(vector.all, max.vectors$V4)
+}
+
+## check the length of the max.values.vector
+length(vector.all)
+
+## summary
+summary(vector.all)
+
+## 
+sum(vector.all > max.unshuffled[4])
+
+## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
+
+## check the percentile of maxium mixscore ADM results greater than that of the unshuffled dataset 
+sum(vector.all > max.unshuffled[4]) / (length(vector.all) - 10)
+
+
+####################
+##  [1] 0.030951    ##
+####################
+
+
+
+
+
+#######################################################
+for( i in 1:10){
+  
+  ##// use paste() method to get routines for all 10 files
+  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
+  
+  ## check the filr name
+  print(file.name)
+  
+  ## read in table, then pick the first colum V1
+  max.vectors <- read.table(file.name, header = F )
+  
+  print( summary(max.vectors) )
+  print( sum(max.vectors > max.unshuffled))
+  
+  vector.all <- c(vector.all, max.vectors$V5)
+}
+
+## check the length of the max.values.vector
+length(vector.all)
+
+## summary
+summary(vector.all)
+
+## 
+sum(vector.all > max.unshuffled[5])
+
+## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
+
+## check the percentile of maxium mixscore ADM results greater than that of the unshuffled dataset 
+sum(vector.all > max.unshuffled[5]) / (length(vector.all) - 10)
+
+
+####################
+##  [1] 0.0404876    ##
+####################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
