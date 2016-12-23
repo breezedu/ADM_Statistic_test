@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /***********
@@ -48,14 +50,14 @@ public class Step7_1222_extract_5Max_ADM_results {
 		
 		
 		for(int i=0; i<10; i++){
-			get_2ndMax_run(routine, filename[i]); 			
+			get_5Max_run(routine, filename[i]); 			
 		}
 			
 		
 		
 	}//end main()
 	
-	private static void get_2ndMax_run(String routine, String filename) throws IOException {
+	private static void get_5Max_run(String routine, String filename) throws IOException {
 		// TODO Auto-generated method stub
 		
 		//step 1, read in the huge matrix
@@ -70,18 +72,13 @@ public class Step7_1222_extract_5Max_ADM_results {
 		 		
 		 		
 				/****************************************************************************************/		
-				//step 2, check the maxim value from each colum
-				ArrayList<Double> max_mixscores = get_2ndmaxMixscore( matrix ); 
-				System.out.println("Print out the max values: " ); 
-				for( int i=0; i<max_mixscores.size(); i++){
-					
-					
-					if( i%100 ==0){
-						
-						System.out.println(); 
-					}
-					
-					System.out.print("\t" + max_mixscores.get(i));
+				//step 2, get first 5 maxim values from each column
+				ArrayList<String> max5_mixscores = get_5maxMixscore( matrix );
+				
+				System.out.println("Print out 10 samples of  5-max values: " ); 
+				for( int i=0; i<10; i++){
+										
+					System.out.println( max5_mixscores.get(i) );
 								
 				}//end for i<max_mixscores.size loop; 
 				/****************************************************************************************/
@@ -90,7 +87,7 @@ public class Step7_1222_extract_5Max_ADM_results {
 				
 				/****************************************************************************************/
 				//step 3, save the maxium values into a txt document
-				save_Matrix(max_mixscores, routine, filename); 
+				save_Matrix(max5_mixscores, routine, filename); 
 				System.out.println("Step 3 done! " + filename );
 				/****************************************************************************************/
 		
@@ -103,17 +100,17 @@ public class Step7_1222_extract_5Max_ADM_results {
 	 * @throws IOException 
 	 * */
 
-	private static void save_Matrix(ArrayList<Double> max_mixscores, String routine, String filename) throws IOException {
+	private static void save_Matrix(ArrayList<String> max5_mixscores, String routine, String filename) throws IOException {
 		// TODO Auto-generated method stub
 		
-		String outFile = "2ndMax_" + filename; 
+		String outFile = "5Max_" + filename; 
 		File output = new File(routine + outFile); 
 		
 		BufferedWriter outWriter = new BufferedWriter( new FileWriter(output)); 
 		
-		for(int i=0; i<max_mixscores.size(); i++){
+		for(int i=0; i<max5_mixscores.size(); i++){
 			
-			outWriter.write(max_mixscores.get(i) + "\n");
+			outWriter.write(max5_mixscores.get(i) + "\n");
 			
 		} //end for loop; 
 		
@@ -128,34 +125,56 @@ public class Step7_1222_extract_5Max_ADM_results {
 	/****************************************************************************************/
 	/*******************************
 	 * Step 2:
+	 * get first 5-max values from each column; 
+	 * 2.1 get an arraylist from each column, 
+	 * 2.2 remove duplicates
+	 * 2.3 sort
+	 * 2.4 get five largest values
+	 * 
+	 * suppose we get 5-max 1.1, 1.2, 1.3, 1.4, 1.5
+	 * Save the first numbers as a string separated by "\t"
+	 * 
 	 * @param matrix
 	 * @return
 	 */
-	private static ArrayList<Double> get_2ndmaxMixscore(double[][] matrix) {
+	private static ArrayList<String> get_5maxMixscore(double[][] matrix) {
 		// TODO Auto-generated method stub
 		
-		ArrayList<Double> retAL = new ArrayList<Double>(); 
+		ArrayList<String> retAL = new ArrayList<String>(); 
 		
 		int row = matrix.length; 
 		int col = matrix[0].length; 
 		
 		for(int i=0; i<col; i++){
 			
-			double max1 = 0;
-			double max2 = 0;
+			//initial a hashset to check if a value is duplicated or not
+			HashSet<Double> columHash = new HashSet<Double>();
+			
+			//initial an arrayList to store the Double values without duplicated values
+			ArrayList<Double> columnArray = new ArrayList<Double>();
 			
 			for(int j=0; j<row; j++){
 				
-				if( matrix[j][i] > max2 && matrix[j][i] < max1){
+				if( !columHash.contains(matrix[j][i])){
 					
-					max2 = matrix[j][i];
+					//put the new value into HashSet
+					columHash.add(matrix[j][i]);
 					
-					} else if ( matrix[j][i] > max1) 
+					//add the new value to the column-array
+					columnArray.add(matrix[j][i]);
+					
 				}
 			
 			} //end for j<row loop; 
 			
-			retAL.add(max2); 
+			
+			//sort the column-array
+			Collections.sort(columnArray);
+			
+			int last = columnArray.size();
+			
+			String fiveMax = columnArray.get(last-1) + "\t" + columnArray.get(last-2) + "\t" + columnArray.get(last-3) + "\t" + columnArray.get(last-4) + "\t" + columnArray.get(last-5); 
+			retAL.add(fiveMax); 
 			
 		}//end for i<col loop; 
 		
