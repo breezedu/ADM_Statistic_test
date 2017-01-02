@@ -452,7 +452,11 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 			 * All SNPs are still aligned by blocks, the first and the last blocks of each individual are aligned,
 			 * So, although the proportion of 0,1,2 is: 		[46%:47%:6%]
 			 * the proportion of 0-block,1-block, 2-block is: 	[59%:39%:2%]   in the original first blocks
-			 * After shuffling, the first blocks have been normalized, so the p
+			 * After shuffling, the first blocks have been normalized, so the shuffling will bring up the proportion of 2 SNPs in the first blocks, 
+			 * which is not what we want, so we created a circle shuffling process, to link the last block to the beginning of the first block, 
+			 * thus formed a circle-blocks-datastructure, then open the circle in a random position, the pivot here. 
+			 * 
+			 * This circle close and open will normalize the SNPs and the SNP-blocks in the same level. 
 			 * 
 			 */
 			//get a random pivot as a 'break' point in the ArrayList
