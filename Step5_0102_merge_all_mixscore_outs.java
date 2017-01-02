@@ -14,6 +14,8 @@ import java.util.Scanner;
  * in each *.out document, there's a vector with length 229860. 
  * 
  * In this step, we will merge all 1000 mixscore outputs into one huge matrix (229860*1000)
+ * This step runs on duke cluster (DSCR), after this step, we could download the outputs into local desktop
+ * for step-6, getting max values. 
  *  
  * @author Jeff
  *
@@ -80,10 +82,17 @@ public class Step5_0102_merge_all_mixscore_outs {
 		 * The second part
 		 * inverse the matrix, and write it into a txt document
 		 * 
+		 * The name of each *mixscore_matrix.txt should be persistent to the dataset this code works on.
+		 * in this project, we have got 10,000 mixscore outputs in one week, so I named those outputs
+		 * following with the date when I got the ADM results: 1130mixscore_matrix.txt, 1204, 1209, 1210, 1211, 1212, 1214,
+		 * 12133, 12134mixscore_matrix.txt;
+		 * 
+		 * All these datasets could be found in duke cluster. 
+		 * 
 		 */
 		//initial a buffered writer
 		//BufferedWriter writer = null;
-		String output_file = "0102mixscore_matrix.txt";
+		String output_file = "1214mixscore_matrix.txt";
 		
 		File file = new File(path + output_file);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
