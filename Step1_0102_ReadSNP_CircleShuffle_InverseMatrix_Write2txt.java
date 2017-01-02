@@ -7,13 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-//import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Random;
 
-/*************************
+/**********************************************************************************
  * 
  * Read_in_SNPs_data.java could read-in SNPs raw data
  * After shuffling, we could get 1000 re-arranged SNPs blocks for each individual
@@ -27,15 +26,6 @@ import java.util.Random;
  * 
  */
 public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
-	
-	/*******************************************************
-	 * create a read_snp object based on Read_in_SNPs_data()
-	 * to run the code on duke cluster, have to put the sub-methods below the main() here
-	 * so, the read_snp object is not really useful when submitting the code 'javac' to the dscr
-	 * 
-	 */
-	//static Read_in_SNPs_data read_snp = new Read_in_SNPs_data();
-	
 	
 	/*********************************************************
 	 * main() 
@@ -99,17 +89,16 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 		 * 	  write the new assembled array of 229860 SNPs into a txt document.
 		 * 4. write the new 229860*565 matrix into a txt document. 
 		 * 
+		 * // transfer snp-blocks into 0,1, or 2 strings, and inverse the matrix, then print the inversed matrix to a txt document;
+		 * // pass all 565 individuals' SNP blocks arraylist, shuffle order, total snp numbers, and routine;
+		 * // inverse_matrix_write2txt(all565_snp_blocks, routine, 0);
+		 * 
+		 * // Repeat the inverse_matrix_write2txt() method for shuffled individuals for 10 times.
+		 * // pass a number of shuffling times to method Shuffling_SNP_blocks().
+		 * // Pass the arrayList of 565 individuals to a method Shuffling_SNP_blocks(), to shuffle the dataset based on SNP-blocks.
+		 * // write the shuffled SNP blocks into a matrix, inverse the matrix and write it into a txt document;
+		 * 
 		 */
-		
-		//transfer snp-blocks into 0,1, or 2 strings, and inverse the matrix, then print the inversed matrix to a txt document;
-		//pass all 565 individuals' SNP blocks arraylist, shuffle order, total snp numbers, and routine;
-		//inverse_matrix_write2txt(all565_snp_blocks, routine, 0);
-		
-		
-		//Repeat the inverse_matrix_write2txt() method for shuffled individuals for 10 times.
-		// pass a number of shuffling times to method Shuffling_SNP_blocks()
-		//Pass the arrayList of 565 individuals to a method Shuffling_SNP_blocks(), to shuffle the dataset based on SNP-blocks 
-		// write the shuffled SNP blocks into a matrix, inverse the matrix and write it into a txt document;
 		
 		Part_III_Shuffling_SNP_blocks(all565_snp_blocks, 1001, routine);
 		
@@ -118,50 +107,6 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 	}//end main();
 	
 	
-	/******************************************
-	 * Part II
-	 * 
-	 * 1. check Block Counts for all 565 individuals' blocks;
-	 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt
-	 * 
-	 * @param all565_snp_blocks
-	 * @param routine
-	 * @throws IOException
-	 */
-	private static void Part_II_writeBlocks2txt(
-			ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, String routine) throws IOException {
-		// TODO Auto-generated method stub
-		
-		
-		//1st. check the over all 0-blocks, 1-blocks, and 2-blocks
-		check_Block_Counts(all565_snp_blocks);
-		
-		
-		//2nd. initial a buffered writer
-		//BufferedWriter writer = null;
-		
-		String output_file = "0102_individual_blocks.txt";
-		
-		
-		File file = new File(routine + output_file);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		
-		
-		//3rd, for each individual in the All565_snp_blocks, write the blocks into the txt document; 
-		for(int i=0; i<all565_snp_blocks.size(); i++){
-			
-			ArrayList<SNP_Block> individual_list = all565_snp_blocks.get(i); 
-			//write each blocks, getSNP and getCount, to the txt document
-			write_block_list_into_txt(writer, file, individual_list);
-		}
-		
-		
-		//close the buffer writer
-		writer.close(); 
-		
-	}//end part_II_writeBlocks2txt() method; 
-
-
 	
 	/*************************
 	 * Part I
@@ -224,94 +169,54 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 	}//end part_I_get_SNPBlocks4All() method; 
 
 
-
-	/******************
-	 * Check how many 0, 1, and 2-type SNPs in the dataset
+	
+	/******************************************
+	 * Part II
+	 * 
+	 * 1. check Block Counts for all 565 individuals' blocks;
+	 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt
 	 * 
 	 * @param all565_snp_blocks
+	 * @param routine
+	 * @throws IOException
 	 */
-	private static void check_Block_Counts(ArrayList<ArrayList<SNP_Block>> snp_blocks) {
+	private static void Part_II_writeBlocks2txt(
+			ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, String routine) throws IOException {
 		// TODO Auto-generated method stub
-		int blocks_0 = 0;
-		int blocks_1 = 0;
-		int blocks_2 = 0;
-		int firstblock_0 = 0;
-		int firstblock_1 = 0;
-		int firstblock_2 = 0;
-		int lastblock_0 = 0;
-		int lastblock_1 = 0;
-		int lastblock_2 = 0;
 		
 		
-		for(int i=0; i<snp_blocks.size(); i++){
-			
-			ArrayList<SNP_Block> temp = snp_blocks.get(i);
-			
-			for(int j=0; j<temp.size(); j++){
-				
-				switch(temp.get(j).getSNP()){
-				case 0: blocks_0 ++; break;
-				case 1: blocks_1 ++; break;
-				case 2: blocks_2 ++; break; 
-				
-				}//end switch() case
-				
-			}//end for j<temp.size() loop;
-			
-			//only count the first block;
-			switch(temp.get(0).getSNP()){
-			
-			case 0: firstblock_0 ++; break;
-			case 1: firstblock_1 ++; break;
-			case 2: firstblock_2 ++; break;
-			
-			} //end switch() case
-			
-			int len = temp.size(); 
-			//only count the last block;
-			switch(temp.get(len-1).getSNP()){
-			
-			case 0: lastblock_0 ++; break;
-			case 1: lastblock_1 ++; break;
-			case 2: lastblock_2 ++; break;
-			
-			} //end switch() case
-			
-			
-		} //end for i<snp_blocks.size() loop;
+		//1st. check the over all 0-blocks, 1-blocks, and 2-blocks
+		check_Block_Counts(all565_snp_blocks);
 		
-		System.out.println("\nThe first blocks:   0-blocks, 1-blocks, 2-blocks..");
-		print_ProportionsOfThree(firstblock_0, firstblock_1, firstblock_2);
 		
-		System.out.println("The last blocks:");
-		print_ProportionsOfThree(lastblock_0, lastblock_1, lastblock_2);
+		//2nd. initial a buffered writer
+		//BufferedWriter writer = null;
+		
+		String output_file = "0102_individual_blocks.txt";
+		
+		
+		File file = new File(routine + output_file);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		
+		
+		//3rd, for each individual in the All565_snp_blocks, write the blocks into the txt document; 
+		for(int i=0; i<all565_snp_blocks.size(); i++){
+			
+			ArrayList<SNP_Block> individual_list = all565_snp_blocks.get(i); 
+			//write each blocks, getSNP and getCount, to the txt document
+			write_block_list_into_txt(writer, file, individual_list);
+		}
+		
+		
+		//close the buffer writer
+		writer.close(); 
+		
+	}//end part_II_writeBlocks2txt() method; 
 	
-		System.out.println("Over all blocks:");
-		print_ProportionsOfThree(blocks_0, blocks_1, blocks_2);
-		
-	}//end check_Block_Counts() method;
+	
+	
 
 
-	/**********************************
-	 * print out the proportion of 0, 1, and 2-type blocks
-	 * @param firstblock_0
-	 * @param firstblock_1
-	 * @param firstblock_2
-	 */
-	private static void print_ProportionsOfThree(int firstblock_0, int firstblock_1, int firstblock_2) {
-		// TODO Auto-generated method stub
-		
-		System.out.println("\t\t\t" + firstblock_0 + "\t" + firstblock_1 + "\t" + firstblock_2);
-		
-		System.out.print("\t\t\t" );
-		System.out.printf(  "%.2f", 100*(double)firstblock_0/(firstblock_0 + firstblock_1 + firstblock_2) );
-		System.out.print("%\t");
-		System.out.printf(	"%.2f", 100*(double)firstblock_1/(firstblock_0 + firstblock_1 + firstblock_2) );
-		System.out.print("%\t");
-		System.out.printf(	"%.2f", 100*(double)firstblock_2/(firstblock_0 + firstblock_1 + firstblock_2) );
-		System.out.println("%");;
-		
-	} //end print_ProportionsOfThree() method; 
 
 
 
@@ -514,6 +419,98 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 	} //end inverse_matrix_write2txt() method;
 
 
+	
+	
+	/******************
+	 * Check how many 0, 1, and 2-type SNPs in the dataset
+	 * 
+	 * @param all565_snp_blocks
+	 */
+	private static void check_Block_Counts(ArrayList<ArrayList<SNP_Block>> snp_blocks) {
+		// TODO Auto-generated method stub
+		int blocks_0 = 0;
+		int blocks_1 = 0;
+		int blocks_2 = 0;
+		int firstblock_0 = 0;
+		int firstblock_1 = 0;
+		int firstblock_2 = 0;
+		int lastblock_0 = 0;
+		int lastblock_1 = 0;
+		int lastblock_2 = 0;
+		
+		
+		for(int i=0; i<snp_blocks.size(); i++){
+			
+			ArrayList<SNP_Block> temp = snp_blocks.get(i);
+			
+			for(int j=0; j<temp.size(); j++){
+				
+				switch(temp.get(j).getSNP()){
+				case 0: blocks_0 ++; break;
+				case 1: blocks_1 ++; break;
+				case 2: blocks_2 ++; break; 
+				
+				}//end switch() case
+				
+			}//end for j<temp.size() loop;
+			
+			//only count the first block;
+			switch(temp.get(0).getSNP()){
+			
+			case 0: firstblock_0 ++; break;
+			case 1: firstblock_1 ++; break;
+			case 2: firstblock_2 ++; break;
+			
+			} //end switch() case
+			
+			int len = temp.size(); 
+			//only count the last block;
+			switch(temp.get(len-1).getSNP()){
+			
+			case 0: lastblock_0 ++; break;
+			case 1: lastblock_1 ++; break;
+			case 2: lastblock_2 ++; break;
+			
+			} //end switch() case
+			
+			
+		} //end for i<snp_blocks.size() loop;
+		
+		System.out.println("\nThe first blocks:   0-blocks, 1-blocks, 2-blocks..");
+		print_ProportionsOfThree(firstblock_0, firstblock_1, firstblock_2);
+		
+		System.out.println("The last blocks:");
+		print_ProportionsOfThree(lastblock_0, lastblock_1, lastblock_2);
+	
+		System.out.println("Over all blocks:");
+		print_ProportionsOfThree(blocks_0, blocks_1, blocks_2);
+		
+	}//end check_Block_Counts() method;
+
+	
+	
+
+	/*****************************************************************
+	 * print out the proportion of 0, 1, and 2-type blocks
+	 * @param firstblock_0
+	 * @param firstblock_1
+	 * @param firstblock_2
+	 */
+	private static void print_ProportionsOfThree(int firstblock_0, int firstblock_1, int firstblock_2) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("\t\t\t" + firstblock_0 + "\t" + firstblock_1 + "\t" + firstblock_2);
+		
+		System.out.print("\t\t\t" );
+		System.out.printf(  "%.2f", 100*(double)firstblock_0/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.print("%\t");
+		System.out.printf(	"%.2f", 100*(double)firstblock_1/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.print("%\t");
+		System.out.printf(	"%.2f", 100*(double)firstblock_2/(firstblock_0 + firstblock_1 + firstblock_2) );
+		System.out.println("%");;
+		
+	} //end print_ProportionsOfThree() method; 
+	
 
 
 	/**************************************************************
