@@ -61,9 +61,11 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 		/******************************
 		 * Part I
 		 * 
-		 * 1. create a buffer reader to read-in all SNPs 
-		 * 2. for each individual, create an ArrayList<SNP_blocks>, to store all SNP-blocks
-		 * 3. create another ArrayList<> to store all 565 individuals' SNP-blocks
+		 * Pass the working routine/directory to the method.
+		 * 
+		 * 1. create a buffer reader to read-in all SNPs.
+		 * 2. for each individual, create an ArrayList<SNP_blocks>, to store all SNP-blocks.
+		 * 3. create another ArrayList<> to store all 565 individuals' SNP-blocks.
 		 * 
 		 */
 		
@@ -74,8 +76,10 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 		/*******************************
 		 * Part II
 		 * 
+		 * Pass the ArrayList of all 565 individuals' SNP-blocks to the method. 
+		 * 
 		 * 1. check Block Counts for all 565 individuals' blocks;
-		 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt
+		 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt.
 		 * * 
 		 */
 		
@@ -86,8 +90,14 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 		/*******************************
 		 * Part III
 		 * 
-		 * 1. circle-shuffling the SNPs for each individual
-		 * 2. 
+		 * Pass the ArrayList of all 565 individuals' SNP-blocks, and the # of output datasets we want, as well as the routine to the method.
+		 * 
+		 * 1. circle-shuffling the SNPs for each individual, collection shuffled 100 times, random pick without replace for another time.
+		 * 2. after shuffling, we would get a 565*229860 matrix, which we have to inverse to a 229860*565 matrix;
+		 * 3. to finish the circle-shuffling, we have to pick a random position at each individual's 229860 SNPs, 
+		 * 	  break the array of 229860 SNPs into first and second halves, put the second half in front of first half
+		 * 	  write the new assembled array of 229860 SNPs into a txt document.
+		 * 4. write the new 229860*565 matrix into a txt document. 
 		 * 
 		 */
 		
@@ -101,7 +111,7 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 		//Pass the arrayList of 565 individuals to a method Shuffling_SNP_blocks(), to shuffle the dataset based on SNP-blocks 
 		// write the shuffled SNP blocks into a matrix, inverse the matrix and write it into a txt document;
 		
-		Shuffling_SNP_blocks(all565_snp_blocks, 1001, routine);
+		Part_III_Shuffling_SNP_blocks(all565_snp_blocks, 1001, routine);
 		
 		
 		
@@ -306,17 +316,27 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 
 
 	/****************
+	 * Part III
+	 * 
+	 * Pass the ArrayList of all 565 individuals' SNP-blocks, and the # of output datasets we want, as well as the routine to the method.
+	 * 
+	 * 1. circle-shuffling the SNPs for each individual, collection shuffled 100 times, random pick without replace for another time.
+	 * 2. after shuffling, we would get a 565*229860 matrix, which we have to inverse to a 229860*565 matrix;
+	 * 3. to finish the circle-shuffling, we have to pick a random position at each individual's 229860 SNPs, 
+	 * 	  break the array of 229860 SNPs into first and second halves, put the second half in front of first half
+	 * 	  write the new assembled array of 229860 SNPs into a txt document.
+	 * 4. write the new 229860*565 matrix into a txt document. 
 	 * 
 	 * @param all565_snp_blocks
 	 * @param shuffle_times
 	 * @param routine
 	 * @throws IOException
 	 */
-	private static void Shuffling_SNP_blocks(ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, int shuffle_times, String routine) throws IOException {
+	private static void Part_III_Shuffling_SNP_blocks(ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, int shuffle_times, String routine) throws IOException {
 		// TODO Auto-generated method stub
 		Random random = new Random();
 		
-		for(int i=1; i<shuffle_times; i++){
+		for(int shuffle_num=1; shuffle_num < shuffle_times; shuffle_num++){
 			
 			//copy the original 565_individual's Block list;
 			//ArrayList<ArrayList<SNP_Block>> temp_list = new ArrayList<ArrayList<SNP_Block>>(all565_snp_blocks);
@@ -362,7 +382,13 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 			System.out.println("There are " + shuffled_list.size() + " individuals in the shuffled dataset.");
 			check_Block_Counts(shuffled_list);
 			
-			inverse_matrix_write2txt(shuffled_list, routine, i);
+			
+			
+			
+			/*************************************
+			 * 
+			 */
+			inverse_matrix_write2txt(shuffled_list, routine, shuffle_num);
 			
 		} //end for i<shuffle_times loop;
 		
@@ -419,6 +445,16 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 			} //end for j<all565_snp_blocks.get().size() loop; 
 			
 			
+			/*****************************************************************
+			 * 
+			 * This Pivot is the key in the circle-shuffle process!
+			 * 
+			 * All SNPs are still aligned by blocks, the first and the last blocks of each individual are aligned,
+			 * So, although the proportion of 0,1,2 is: 		[46%:47%:6%]
+			 * the proportion of 0-block,1-block, 2-block is: 	[59%:39%:2%]   in the original first blocks
+			 * After shuffling, the first blocks have been normalized, so the p
+			 * 
+			 */
 			//get a random pivot as a 'break' point in the ArrayList
 			// pivot = random(0 - 229860);
 			
