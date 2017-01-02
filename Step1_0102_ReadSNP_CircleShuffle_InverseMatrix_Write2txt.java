@@ -45,78 +45,51 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 	 */
 	public static void main(String[] args) throws IOException{
 		
-		// 1st, get names for all data files: lampld_chr1.out till lampld_chr22.out;
-		String[] files = new String[22];
-		
-		for(int i=1; i<= 22; i++){
-			
-			files[i-1] = "lampld_chr" + i + ".out";
-		}
-		
-		
-		// 2nd, get directory routine: D:\GitHub\ADM_Statistic_Data
+		// 1st, get directory routine: D:\GitHub\ADM_Statistic_Data
 		// String routine = "D:/GitHub/ADM_Statistic_Data/";
 		// Under this folder, there are 22 chromosome datasets.
 		
 		//desktop routine: D:/GitHubRepositories/ADM_Statistic_Data/
 		//laptop routine: "D:/GitHub/ADM_Statistic_Data/";
 		//DSCR cluster routine: "/work/AndrewGroup/ADM_test/ADM_Statistic_Data/"
+		
+		
 		String routine = "D:/GitHubRepositories/ADM_Statistic_Data/";
 		//routine = "D:/GitHub/ADM_Statistic_Data/";
 		//routine = "/work/AndrewGroup/ADM_test/ADM_Statistic_Data/"; 
 		
+		/******************************
+		 * Part I
+		 * 
+		 * 1. create a buffer reader to read-in all SNPs 
+		 * 2. for each individual, create an ArrayList<SNP_blocks>, to store all SNP-blocks
+		 * 3. create another ArrayList<> to store all 565 individuals' SNP-blocks
+		 * 
+		 */
 		
-		//3rd initial a buffered writer
-		//BufferedWriter writer = null;
-		String output_file = "0102_individual_blocks.txt";
-		
-		
-		File file = new File(routine + output_file);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		
-		
-		//for each individual, we will reformat the SNPs-blocks, and put all blocks in an ArrayList
-		//here we initiate another ArrayList to store all snp-blocks list for all 565 individuals;
-		ArrayList<ArrayList<SNP_Block>> all565_snp_blocks = new ArrayList<ArrayList<SNP_Block>>();
-		
-		for(int indiv = 1; indiv <566; indiv++){
-			
-			//initial an arraylist to store all SNP blocks:
-			ArrayList<SNP_Block> temp_SNP_list = new ArrayList<SNP_Block>();
-			
-			//get all snp-blocks for current individual
-			for(int i=0; i<22; i++){
-				
-				//System.out.println("Read in file: " + files[i]);
-				
-				temp_SNP_list = get_snp_blocks_from_one_chromosome(routine, files[i], indiv, temp_SNP_list);
-			
-			}//end for i<22 loop;
-			
-			
-			//put current individual's block-list in the all565_snp_blocks list;
-			all565_snp_blocks.add(temp_SNP_list); 
-			
-			//write each blocks, getSNP and getCount, to the txt document
-			write_block_list_into_txt(writer, file, temp_SNP_list);
-			
-			
-			//ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);			
-			//Collections.shuffle(temp_list);
-					
-			//System.out.println("Individual #" + indiv + " done! There are " + sum_snps + " snps in total.");
-			
-		} //end for indiv < 566 loop;		
-		
-		System.out.println("There are " + all565_snp_blocks.size() + " individuals.");
-		
-		writer.close(); 
+		ArrayList< ArrayList<SNP_Block> > all565_snp_blocks = Part_I_get_SNPBlocks4All( routine ); 
 		
 		
 		
-		//check the over all 0-blocks, 1-blocks, and 2-blocks
-		check_Block_Counts(all565_snp_blocks);
+		/*******************************
+		 * Part II
+		 * 
+		 * 1. check Block Counts for all 565 individuals' blocks;
+		 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt
+		 * * 
+		 */
 		
+		Part_II_writeBlocks2txt(all565_snp_blocks, routine); 
+
+		
+		
+		/*******************************
+		 * Part III
+		 * 
+		 * 1. circle-shuffling the SNPs for each individual
+		 * 2. 
+		 * 
+		 */
 		
 		//transfer snp-blocks into 0,1, or 2 strings, and inverse the matrix, then print the inversed matrix to a txt document;
 		//pass all 565 individuals' SNP blocks arraylist, shuffle order, total snp numbers, and routine;
@@ -135,7 +108,113 @@ public class Step1_0102_ReadSNP_CircleShuffle_InverseMatrix_Write2txt {
 	}//end main();
 	
 	
+	/******************************************
+	 * Part II
+	 * 
+	 * 1. check Block Counts for all 565 individuals' blocks;
+	 * 2. write all blocks to a txt document, here in this code, the output document: 0102_individual_blocks.txt
+	 * 
+	 * @param all565_snp_blocks
+	 * @param routine
+	 * @throws IOException
+	 */
+	private static void Part_II_writeBlocks2txt(
+			ArrayList<ArrayList<SNP_Block>> all565_snp_blocks, String routine) throws IOException {
+		// TODO Auto-generated method stub
+		
+		
+		//1st. check the over all 0-blocks, 1-blocks, and 2-blocks
+		check_Block_Counts(all565_snp_blocks);
+		
+		
+		//2nd. initial a buffered writer
+		//BufferedWriter writer = null;
+		
+		String output_file = "0102_individual_blocks.txt";
+		
+		
+		File file = new File(routine + output_file);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		
+		
+		//3rd, for each individual in the All565_snp_blocks, write the blocks into the txt document; 
+		for(int i=0; i<all565_snp_blocks.size(); i++){
+			
+			ArrayList<SNP_Block> individual_list = all565_snp_blocks.get(i); 
+			//write each blocks, getSNP and getCount, to the txt document
+			write_block_list_into_txt(writer, file, individual_list);
+		}
+		
+		
+		//close the buffer writer
+		writer.close(); 
+		
+	}//end part_II_writeBlocks2txt() method; 
+
+
 	
+	/*************************
+	 * Part I
+	 * 
+	 * 1. create a buffer reader to read-in all SNPs 
+	 * 2. for each individual, create an ArrayList<SNP_blocks>, to store all SNP-blocks
+	 * 3. create another ArrayList<> to store all 565 individuals' SNP-blocks
+	 * * * 
+	 * @param routine
+	 * @return
+	 * @throws IOException
+	 */
+	private static ArrayList<ArrayList<SNP_Block>> Part_I_get_SNPBlocks4All(String routine) throws IOException {
+		// TODO Auto-generated method stub
+		// 1st, get names for all data files: lampld_chr1.out till lampld_chr22.out;
+		String[] files = new String[22];
+				
+		for(int i=1; i<= 22; i++){
+					
+			files[i-1] = "lampld_chr" + i + ".out";
+		}
+				
+				
+		//for each individual, we will reformat the SNPs-blocks, and put all blocks in an ArrayList
+		//here we initiate another ArrayList to store all snp-blocks list for all 565 individuals;
+		ArrayList< ArrayList<SNP_Block> > all565_snp_blocks = new ArrayList<ArrayList<SNP_Block>>();
+				
+		for(int indiv = 1; indiv <566; indiv++){
+					
+			//initial an arraylist to store all SNP blocks:
+			ArrayList<SNP_Block> temp_SNP_list = new ArrayList<SNP_Block>();
+					
+			//get all snp-blocks for current individual
+			for(int i=0; i<22; i++){
+						
+				//System.out.println("Read in file: " + files[i]);
+						
+				temp_SNP_list = get_snp_blocks_from_one_chromosome(routine, files[i], indiv, temp_SNP_list);
+					
+			}//end for i<22 loop;
+					
+					
+			//put current individual's block-list in the all565_snp_blocks list;
+			all565_snp_blocks.add(temp_SNP_list); 
+					
+
+					
+					
+			//ArrayList<SNP_Block> temp_list = new ArrayList<SNP_Block>(temp_SNP_list);			
+			//Collections.shuffle(temp_list);
+							
+			//System.out.println("Individual #" + indiv + " done! There are " + sum_snps + " snps in total.");
+					
+		} //end for indiv < 566 loop;		
+				
+		System.out.println("There are " + all565_snp_blocks.size() + " individuals.");
+			
+		return all565_snp_blocks;
+		
+	}//end part_I_get_SNPBlocks4All() method; 
+
+
+
 	/******************
 	 * Check how many 0, 1, and 2-type SNPs in the dataset
 	 * 
