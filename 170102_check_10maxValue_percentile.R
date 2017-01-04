@@ -84,16 +84,16 @@ for( i in 1:10){
 
 ### Print out p-value for the first 10 maxium values in the unshuffled dataset:
 # 
-# [1] 0.0179
-# [1] 0.0286
-# [1] 0.0455
-# [1] 0.0532
-# [1] 0.0773
-# [1] 0.1129
-# [1] 0.1297
-# [1] 0.1575
-# [1] 0.1812
-# [1] 0.2135
+# [1] 1st maxium value percentage: 0.0179
+# [1] 2nd maxium value percentage: 0.0286
+# [1] 3rd maxium value percentage: 0.0455
+# [1] 4th maxium value percentage: 0.0532
+# [1] 5th maxium value percentage: 0.0773
+# [1] 6th maxium value percentage: 0.1129
+# [1] 7th maxium value percentage: 0.1297
+# [1] 8th maxium value percentage: 0.1575
+# [1] 9th maxium value percentage: 0.1812
+# [1] 10th maxium value percentage: 0.2135
 > 
 
 
