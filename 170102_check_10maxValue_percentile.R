@@ -18,20 +18,21 @@
 ## the folder where I put all the mixscore max vectors
 routine <- 'D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/'
 
-## there are 13 max mixscore ADM vectors, each contains 1001 max values of mixscores, the first one is the unshuffled dataset's max value
-max.vectors <- rep(NA, 13)
+## there are 10 max mixscore ADM vectors, each contains 1001 max values of mixscores, the first one is the unshuffled dataset's max value
+max.vectors <- rep(NA, 10)
 
 
 ### get the max ADM mixscore value from unshuffled dataset
 ### the first colum represent result from the unshuffled dataset
-test.vectors <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/5Max_mixscore_1.txt", header = F)
+test.vectors <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/10Max_mixscore_1.txt", header = F)
 
 summary(test.vectors)
 # get the first max value
 max.unshuffled <- test.vectors[1, ]
 
 # print check
-max.unshuffled <- c(max.unshuffled$V1, max.unshuffled$V2, max.unshuffled$V3, max.unshuffled$V4, max.unshuffled$V5)
+max.unshuffled <- c(max.unshuffled$V1, max.unshuffled$V2, max.unshuffled$V3, max.unshuffled$V4, max.unshuffled$V5, 
+                    max.unshuffled$V6, max.unshuffled$V7, max.unshuffled$V8, max.unshuffled$V9, max.unshuffled$V10)
 max.unshuffled
 
 ## initial an empty vector, to store all max values from 10,000 datasets of shuffled datasets.
@@ -48,7 +49,7 @@ vector1st.all <- NULL
 for( i in 1:10){
   
   ##// use paste() method to get routines for all 10 files
-  file.name <- paste(routine, '5max_mixscore_', i, '.txt', sep = '')
+  file.name <- paste(routine, '10max_mixscore_', i, '.txt', sep = '')
   
   ## check the filr name
   print(file.name)
@@ -68,7 +69,53 @@ length(vector1st.all)
 ## summary
 summary(vector1st.all)
 
-## 
+for( i in 1:10){
+  
+  sum(vector1st.all > max.unshuffled[i])
+  
+  print( sum( vector1st.all > max.unshuffled[i]) / (length(vector1st.all) - 10) )
+  
+}
+
+
+
+# > max.unshuffled
+# [1] 16.6244 15.9254 15.2406 14.5702 13.9141 13.2725 13.0877 12.6453 12.3885 12.0326
+
+### Print out p-value for the first 10 maxium values in the unshuffled dataset:
+# 
+# [1] 0.0179
+# [1] 0.0286
+# [1] 0.0455
+# [1] 0.0532
+# [1] 0.0773
+# [1] 0.1129
+# [1] 0.1297
+# [1] 0.1575
+# [1] 0.1812
+# [1] 0.2135
+> 
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+## ####################################################################################
 sum(vector1st.all > max.unshuffled[1])
 
 ## over all 10,000 shuffled datasets, there are 179 max values greater than the max mixscore value of unshuffled dataset
