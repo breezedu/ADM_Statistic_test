@@ -173,6 +173,9 @@ sum(vector.all > max.unshuffled[2]) / (length(vector.all) - 10)
 
 
 
+
+#######################################################
+## check the 3rd max
 #######################################################
 for( i in 1:10){
   
@@ -212,6 +215,9 @@ sum(vector.all > max.unshuffled[3]) / (length(vector.all) - 10)
 
 
 
+
+#######################################################
+## check the 4th max
 #######################################################
 for( i in 1:10){
   
@@ -253,6 +259,9 @@ sum(vector.all > max.unshuffled[4]) / (length(vector.all) - 10)
 
 
 
+
+#######################################################
+## check the 5th max
 #######################################################
 for( i in 1:10){
   
@@ -307,6 +316,10 @@ sum(vector.all > max.unshuffled[5]) / (length(vector.all) - 10)
 
 
 
+#######################################################
+## Some useless plots
+#######################################################
+##
 
 mixscore_unshuffle <- read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/mixscore_shuffled0.out", header = F)
 mixscore <- mixscore_unshuffle$V1
