@@ -93,17 +93,11 @@ for(chrom in 1:22){
   points(x.chrom, y.chrom)
   abline(v=chromosome.end[chrom], col="blue")
   
+  text(mean(x.chrom), mean(y.chrom), paste("chromosome#", i),
+       cex = .8)
+  
 }
 
 
 
 ### end of plot. 
-
-
-points(x=1:18485, y=rep(5, 18485))
-
-points(x=18486:37290, y=rep(4, (37290-18485)))
-
-plot(x, y, main = 'Unshuffled Data MixScore', xlab = 'Range of Max SNPs', ylab = 'Max Values of Unshuffled data')
-
-
