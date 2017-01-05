@@ -35,6 +35,9 @@ max
 x = which(unshuffled == max) 
 y = rep(max, length(x))
 
+
+
+png(file = '0105_maxs_distribution.png', width = 20, height = 10, units = 'in', res = 200)
 #plot()
 plot(x, y, 
      xlim =c(1,229860), 
@@ -93,11 +96,11 @@ for(chrom in 1:22){
   points(x.chrom, y.chrom)
   abline(v=chromosome.end[chrom], col="blue")
   
-  text(mean(x.chrom), mean(y.chrom), paste("chromosome#", i),
+  text(mean(x.chrom), mean(y.chrom+0.5), paste("chr#", chrom),
        cex = .8)
   
 }
 
-
+dev.off()
 
 ### end of plot. 
