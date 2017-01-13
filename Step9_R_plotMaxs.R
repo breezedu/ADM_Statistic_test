@@ -36,8 +36,18 @@ x = which(unshuffled == max)
 y = rep(max, length(x))
 
 
+#### Plot the max distribution for unshuffled data only
+plot(x, y,
+     xlim = c(87300, 87600),      #chromosome #6
+     ylim = c(0, 25), 
+     main = "Max distribution for unshuffled data",
+     xlab = 'Partical Range of SNPs on Chromosome #6', 
+     ylab = 'Max values of ADM result'
+     )
 
-png(file = '0105_maxs_distribution.png', width = 20, height = 10, units = 'in', res = 200)
+
+
+jpeg(file = 'MaxDist_1001Datasets.jpeg', width = 20, height = 10, units = 'in', res = 200)
 #plot()
 plot(x, y, 
      xlim =c(1,229860), 
