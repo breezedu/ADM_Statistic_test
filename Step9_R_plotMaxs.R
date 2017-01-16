@@ -94,23 +94,102 @@ chromosome.end
 for(chrom in 1:22){
   
   x.chrom = chromosome.start[chrom]:chromosome.end[chrom]
+  color <- "red"
   
   if(chrom %% 2 == 0){
     
       y.chrom = rep(1, length(x.chrom) )
+      color <- "blue"
   
   } else {
       y.chrom = rep(2, length(x.chrom))
     } 
   
-  points(x.chrom, y.chrom)
+  points(x.chrom, y.chrom, col = color)
   abline(v=chromosome.end[chrom], col="blue")
   
   text(mean(x.chrom), mean(y.chrom+0.5), paste("chr#", chrom),
        cex = .8)
   
 }
+abline(v=1, col="blue")
 
 dev.off()
 
 ### end of plot. 
+
+
+##########################################################################################
+# Plotting snp-blocks
+##########################################################################################
+
+
+
+createSNPs <- function(seed){
+  
+  set.seed(seed + 123)
+  snps.type <- sample(1:3, 10, replace = T)
+  snps.type
+  
+  seq <- c(10:20)
+  seq <- seq*80
+  
+  snps.length <- sample(seq, 10, replace = T)
+  snps.length
+  
+  ## creat a sequence of SNPs
+  snps.seq <- NULL
+  
+  for( i in 1:10){
+    
+    for(j in 0:snps.length[i]){
+      
+      snps.seq <- c(snps.seq, snps.type[i])
+      
+    }
+    
+    
+  } ## end for i in 1:10
+  
+  snps.seq <- snps.seq[1:10000]
+  snps.seq
+  
+  return(snps.seq)
+}
+
+
+plot(x = (1:10000), 
+     y = rep(0, 10000), 
+     ylim = c(0,11), 
+     col = "white", 
+     main = "Align first 10000 SNPs for 10 people" , 
+     xlab = "SNP-blocks", 
+     ylab = "Individuals"
+     ) 
+
+
+
+for(i in 1:10){
+  
+  snpsequence <- createSNPs(i)
+  
+  for(j in 1:10000){
+    
+    color = "black"
+    
+    if(snpsequence[j] == 1){
+      
+      color = "blue"
+      
+    } else if(snpsequence[j] == 2){
+      
+      color = "red"
+    }
+    
+      points(x = j, y = i, col = color)
+      
+  } ## end for j in 1:10000
+  
+} ## end for i in 1:10
+
+
