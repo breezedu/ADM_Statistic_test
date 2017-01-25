@@ -1,18 +1,18 @@
 ##
 ## step 10, step-down maxT maxP analysis
 
-
+## on laptop routine: D:\GitHub\ADM_Statistic_Data\AdmixOut\cirShuffle_Out
 ## read in matrics: 
-matrix1 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/Out_results/1130mixscore_matrix.txt", header = F))
+matrix1 <- as.matrix( read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/1130mixscore_matrix.txt", header = F))
 matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1204mixscore_matrix.txt", header = F))
 matrix3 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1209mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1210mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1211mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1212mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/12133mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/12134mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1213mixscore_matrix.txt", header = F))
-matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/2ndMax_1214mixscore_matrix.txt", header = F))
+matrix4 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1210mixscore_matrix.txt", header = F))
+matrix5 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1211mixscore_matrix.txt", header = F))
+matrix6 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1212mixscore_matrix.txt", header = F))
+matrix7 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/12133mixscore_matrix.txt", header = F))
+matrix8 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/12134mixscore_matrix.txt", header = F))
+matrix9 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1213mixscore_matrix.txt", header = F))
+matrix10 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/2ndMax_1214mixscore_matrix.txt", header = F))
 
 
 
