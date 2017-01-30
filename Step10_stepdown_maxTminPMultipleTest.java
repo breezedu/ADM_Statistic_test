@@ -21,6 +21,8 @@ public class Step10_stepdown_maxTminPMultipleTest {
 	public static void main(String[] args) throws IOException{
 		
 		/**********************************************************************************************/
+		//	Part I: get the raw data from txt documents
+		
 		//	one of the 10 datasets are put in directory
 		//	routine: D:\data\ADM\1130
 		//	file name: max_mixscore_1.txt
@@ -35,6 +37,9 @@ public class Step10_stepdown_maxTminPMultipleTest {
 		
 		
 		/************************************************************************************************/
+		//	Part II: calculate adjust p-values for each dataset
+		
+		//	There are 10 datasets, so we have to repeat Part II for 10 times;
 		//	initial an 229860 array to store all adjusted p-values;
 		int[] adjPvalue = new int[229860];
 		
@@ -61,6 +66,9 @@ public class Step10_stepdown_maxTminPMultipleTest {
 		
 				
 		/************************************************************************************************/
+		//	Part II print the adjust p-values to a txt document
+		
+		//initial File to store adjust p-values;
 		File output = new File(routine + "adjustPvalues.txt");
 		
 		//create a buffer writer
