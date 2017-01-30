@@ -41,7 +41,8 @@ public class Step10_stepdown_maxTminPMultipleTest {
 		System.out.println("print out only last 100 adjusted p-values for each dataset:");
 		
 		//	pass the routine and dataset txt file name to calculateAdjustPvalueOneMatrix() method;
-		//	get one group of adjust p-values for 1000 shuffled datasets;
+		//	each time the method will return a group of adjust p-values for 1000 shuffled datasets;
+		//	We have 10 datasets, so we initial adjPvalue array to merge all these 10 groups of adjust-pvalues
 		for(int i = 0; i<10; i++){
 			
 			int[] pvalue = calculateAdjustPvalueOneMatrix(routine, files[i]);
@@ -81,13 +82,14 @@ public class Step10_stepdown_maxTminPMultipleTest {
 	
 	
 	/************************************************************************************************
-	 * printout an array of integers
+	 * printout last 100 elements in an array of integers
 	 * @param array
 	 */
 	private static void printArray(int[] array) {
-		// TODO Auto-generated method stub
+		// Only print out the last 100 elements of an array
 		
 		System.out.println();
+		
 		for(int i=array.length-100; i<array.length; i++){
 			System.out.print(array[i] + "\t");
 		}
@@ -114,7 +116,7 @@ public class Step10_stepdown_maxTminPMultipleTest {
 		
 		/**********************************************************************************************/		
 		// pass the index of a column, get the corresponding array, sort;
-		double[] unshuffled = getOneSortedArray(matrix, 0);
+		double[] unshuffled = getOneArray(matrix, 0);
 		Arrays.sort(unshuffled);
 		
 		//System.out.println("get the unshuffled ADM result: " + unshuffled[0] +" " + unshuffled[229859]);
@@ -123,7 +125,7 @@ public class Step10_stepdown_maxTminPMultipleTest {
 		
 		for(int index = 1; index <1001; index++){
 			
-			double[] shuffled = getOneSortedArray(matrix, index);
+			double[] shuffled = getOneArray(matrix, index);
 			
 			double[] Umb = new double[229860];
 			Umb[0] = shuffled[0];
@@ -171,12 +173,14 @@ public class Step10_stepdown_maxTminPMultipleTest {
 
 
 	/**************************************************************************************
+	 * pass the index of a column
+	 * return that corresponding column as an array
 	 * 
 	 * @param matrix
 	 * @param col
 	 * @return
 	 */
-	private static double[] getOneSortedArray(double[][] matrix, int col) {
+	private static double[] getOneArray(double[][] matrix, int col) {
 		//  col is the column index
 		//	get one column from matrix, return it as a new array
 		double[] array = new double[229860];
