@@ -62,8 +62,13 @@ classlabel<-rep(0:18,2)
 mt.maxT(smallgd,classlabel,test="blockf",side="upper")
 
 
+###############################################
+##
+adjPvalues <- read.table("D:/data/ADM/adjustPvalues.txt", header = F)
+adjPvalues <- adjPvalues$V1
 
+adjPvalues <- unique(adjPvalues)
+adjPvalues
 
-
-
+plot(adjPvalues)
 
