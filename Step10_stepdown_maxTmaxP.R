@@ -3,7 +3,7 @@
 
 ## on laptop routine: D:\GitHub\ADM_Statistic_Data\AdmixOut\cirShuffle_Out
 ## read in matrics: 
-matrix1 <- as.matrix( read.table("D:/GitHub/ADM_Statistic_Data/AdmixOut/cirShuffle_Out/1130mixscore_matrix.txt", header = F))
+matrix1 <- as.matrix( read.table("D:/data/ADM/max_mixscore_1.txt", header = F))
 matrix2 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1204mixscore_matrix.txt", header = F))
 matrix3 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1209mixscore_matrix.txt", header = F))
 matrix4 <- as.matrix( read.table("D:/GitHubRepositories/ADM_Statistic_Data/CircleShuffle/out_results/1210mixscore_matrix.txt", header = F))
@@ -70,5 +70,15 @@ adjPvalues <- adjPvalues$V1
 adjPvalues <- unique(adjPvalues)
 adjPvalues
 
-plot(adjPvalues)
+plot(adjPvalues, 
+     main = "step down maxT adjust P-values",
+     xlab = "remove duplications",
+     ylab = "adjust p-values"
+     )
+dim(matrix1)
+
+unshuffled <- matrix1[,1]
+unshuffled <- unique(unshuffled)
+length(unshuffled)
+
 
