@@ -1,5 +1,12 @@
 package data_manipulating;
-
+/**************************************
+ * We have got 10 sets of ADM results from prior steps
+ * in each dataset, there are values, each one was extracted from one ADM analysis
+ * the first value was the max ADM result from unshuffled dataset
+ * all other 1000 values were the max ADM results from shuffled data.
+ * This code would merge all 10,000 max values into one vector.
+ * 
+ */
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
